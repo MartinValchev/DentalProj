@@ -1,9 +1,11 @@
 package com.spring.dental.proj.DentalProj;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication 
+@EnableAutoConfiguration	
 public class DentalProjApplication {
 
 	public static void main(String[] args) {
