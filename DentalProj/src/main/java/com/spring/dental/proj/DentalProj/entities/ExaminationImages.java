@@ -18,7 +18,7 @@ public class ExaminationImages {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name="image_path")
+	@Column(name="image_name")
 	private String imageName;
 	
 	@ManyToOne
