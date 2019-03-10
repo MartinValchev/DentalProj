@@ -1,5 +1,7 @@
 package com.spring.dental.proj.DentalProj.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,16 +11,29 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "dentist")
-public class Dentist {
+public class Dentist implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 773394401244069276L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String name;
+	@Column(name ="first_name",length=40)
+	private String firstName;
+	
+	@Column(name ="middle_name",length=40)
+	private String middleName;
+	
+	@Column(name ="last_name",length=40)
+	private String lastName;
 
+	@Column(name ="telephone",length=100)
 	private String telephone;
 
-	@Column(name = "dentis_image_path")
+	@Column(name = "dentis_image_path",length=200)
 	private String dentistImagePath;
 
 	public Long getId() {
@@ -29,12 +44,29 @@ public class Dentist {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getTelephone() {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -53,6 +54,14 @@ public class MedicalExaminationRepositoryImpl implements MedicalExaminationRepos
 				MedicalExamination.class);
 		query.setParameter("patientId", patient.getId());
 		return query.getResultList();
+	}
+
+	@Override
+	public MedicalExamination saveMedicalExamination(MedicalExamination medicalExamination) {
+		entityManager.persist(medicalExamination);	
+		medicalExamination.getId();
+		entityManager.flush();
+		return medicalExamination;
 	}
 
 }

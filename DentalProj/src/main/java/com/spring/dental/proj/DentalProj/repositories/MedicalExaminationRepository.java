@@ -16,4 +16,6 @@ public interface MedicalExaminationRepository {
 	List<MedicalExamination> getMedicalExaminationsByDentist(Dentist dentist, Date date);
 
 	List<MedicalExamination> getMedicalExaminationsByPatient(Patient patient);
+
+	MedicalExamination saveMedicalExamination(MedicalExamination medicalExamination);
 }

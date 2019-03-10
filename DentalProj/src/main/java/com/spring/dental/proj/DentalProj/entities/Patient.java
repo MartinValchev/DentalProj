@@ -1,5 +1,7 @@
 package com.spring.dental.proj.DentalProj.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +11,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="patient")
-public class Patient {
+public class Patient implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -592534090816626660L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@Column(name="first_name")
