@@ -29,4 +29,10 @@ public class MedicalExaminationRepositoryImpl implements MedicalExaminationRepos
 		return null;
 	}
 
+	@Override
+	public MedicalExamination saveMedicalExamination(MedicalExamination examination) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -9,4 +9,5 @@ public interface MedicalExaminationRepository {
 	List<MedicalExamination> getAllMedicalExaminations();
 	List<MedicalExamination> getMedicalExaminationsByDentist(Dentist dentist);
 	MedicalExamination getMedicalExaminationById(Long id);
+	MedicalExamination saveMedicalExamination(MedicalExamination examination);
 }

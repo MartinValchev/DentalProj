@@ -67,6 +67,6 @@ public class MedicalExaminationRepositoryTest {
 		imageList.add(image1);
 		imageList.add(image2);
 		medicalExamination1.setExaminationImages(imageList);
-		medicalExaminationRepository.
+
 	}
 }

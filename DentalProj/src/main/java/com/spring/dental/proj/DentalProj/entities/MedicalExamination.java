@@ -40,7 +40,7 @@ public class MedicalExamination {
 
 	@OneToMany(mappedBy = "medicalExamination")
 
-	private List<ExaminationImages> examinationImages;
+	private List<ExaminationImage> examinationImages;
 	
 	private String notes;
 
@@ -78,11 +78,11 @@ public class MedicalExamination {
 		this.endDate = endDate;
 	}
 
-	public List<ExaminationImages> getExaminationImages() {
+	public List<ExaminationImage> getExaminationImages() {
 		return examinationImages;
 	}
 
-	public void setExaminationImages(List<ExaminationImages> examinationImages) {
+	public void setExaminationImages(List<ExaminationImage> examinationImages) {
 		this.examinationImages = examinationImages;
 	}
 
@@ -100,6 +100,14 @@ public class MedicalExamination {
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+
+	public Dentist getDentist() {
+		return dentist;
+	}
+
+	public void setDentist(Dentist dentist) {
+		this.dentist = dentist;
 	}
 
 }
