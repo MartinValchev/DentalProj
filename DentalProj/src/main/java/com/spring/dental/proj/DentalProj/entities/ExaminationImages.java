@@ -15,7 +15,8 @@ import javax.persistence.Table;
 @Table(name = "examination_images")
 public class ExaminationImages {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(name="image_name")
@@ -28,6 +29,7 @@ public class ExaminationImages {
 	@Column(name = "upload_date")
 	private Date uploadDate;
 	
+
 	@Column(name = "image_path")
 	private String imagePath;
 

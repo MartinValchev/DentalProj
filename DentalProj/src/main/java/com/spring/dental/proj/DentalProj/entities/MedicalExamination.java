@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "medical_examination")
 public class MedicalExamination {
@@ -38,6 +39,7 @@ public class MedicalExamination {
 	private Date endDate;
 
 	@OneToMany(mappedBy = "medicalExamination")
+
 	private List<ExaminationImages> examinationImages;
 	
 	private String notes;
@@ -47,10 +49,12 @@ public class MedicalExamination {
 	}
 
 	public void setId(long id) {
+
 		this.id = id;
 	}
 
 	public String getTitle() {
+		
 		return title;
 	}
 

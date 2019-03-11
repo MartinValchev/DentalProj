@@ -12,23 +12,26 @@ import javax.persistence.Table;
 public class Patient {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="first_name")
+	@Column(name="first_name", length=40)
 	private String firstName;
 	
-	@Column(name="middle_name")
+	@Column(name= "middle_name", length=40)
 	private String middleName;
 	
-	@Column(name="last_name")
+	@Column(name= "last_name", length=40)	
 	private String lastName;
 	
+	@Column(name= "telephone", length=40)	
 	private String telephone;
 	
+	@Column(name= "address", length=100)		
 	private String address;
 	
-	@Column(name="image_path")
+	@Column(name= "image_path", length=200)	
+
 	private String imagePath;
 	
 	public int getId() {
