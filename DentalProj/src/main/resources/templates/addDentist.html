@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type"
+	content="application/json; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
+	th:href="@{/bootstrap/css/bootstrap.min.css}" />
+
+<title>Add new dentist</title>
 </head>
 <body>
-
+	<header th:insert="/fragments/menu::menu"></header>
+	<br />
+	<div class="container">
+		<div class="jumbotron" style="background-color: white">
+			<h2>Add a new dentist</h2>
+		</div>
+		<form th:replace="fragments/forms::addDentistForm"></form>
+	</div>
+	<script th:src="@{/jquery/jquery.min.js}"></script>
+	<script th:src="@{/bootstrap/js/tether.min.js}"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
