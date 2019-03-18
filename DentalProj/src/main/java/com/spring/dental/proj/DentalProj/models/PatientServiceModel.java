@@ -1,41 +1,18 @@
-package com.spring.dental.proj.DentalProj.entities;
+package com.spring.dental.proj.DentalProj.models;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="patient")
-public class Patient implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -592534090816626660L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+public class PatientServiceModel {
 	private int id;
 	
-	@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="middle_name")
 	private String middleName;
 	
-	@Column(name="last_name")
 	private String lastName;
 	
 	private String telephone;
 	
 	private String address;
 	
-	@Column(name="image_path")
 	private String imagePath;
 	
 	public int getId() {
@@ -80,6 +57,4 @@ public class Patient implements Serializable{
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-	
-	
 }

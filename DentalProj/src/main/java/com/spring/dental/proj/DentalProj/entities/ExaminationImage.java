@@ -1,5 +1,6 @@
 package com.spring.dental.proj.DentalProj.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,9 +14,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "examination_images")
-public class ExaminationImages {
+public class ExaminationImage implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7252751511414345167L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
 	@Column(name="image_name")
