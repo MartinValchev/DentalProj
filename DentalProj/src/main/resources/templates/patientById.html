@@ -6,33 +6,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
 	th:href="@{/bootstrap/css/bootstrap.min.css}" />
-<title>Get Dentist by ID</title>
+<title>Get patient by ID</title>
 </head>
 <body>
 	<header th:insert="/fragments/menu::menu"></header>
 	<br />
 	<div class="container">
 		<div class="jumbotron" style="background-color: white">
-			<h2>Dentist Information by Id</h2>
+			<h2>Patient Information by Id</h2>
 		</div>
 		<div class="panel panel-default">
 			<ul class="list-group">
-				<li class="list-group-item"><label for="dentistId"
-					class="col-sm-2 col-form-label"><b>Dentist ID: </b> </label><span
-					id="dentistId" th:text="${dentist.id}"></span></li>
-				<li class="list-group-item"><img id="imagePath" src="${dentist.imagePath}" alt="dentist image" height="45" width="45"></li>
+				<li class="list-group-item"><label for="patientId"
+					class="col-sm-2 col-form-label"><b>Patient ID: </b> </label><span
+					id="patientId" th:text="${patient.id}"></span></li>
+				<li class="list-group-item"><img id="imagePath" src="${patient.imagePath}" alt="patient image" height="45" width="45"></li>
 				<li class="list-group-item"><label for="firstName"
 					class="col-sm-2 col-form-label"><b>First Name: </b> </label><span
-					id="firstName" th:text="${dentist.firstName}"></span></li>
+					id="firstName" th:text="${patient.firstName}"></span></li>
 				<li class="list-group-item"><label for="middleName"
 					class="col-sm-2 col-form-label"><b>Middle Name: </b> </label><span
-					id="dentistDesc" th:text="${dentist.middleName}"></span></li>
+					id="patientDesc" th:text="${patient.middleName}"></span></li>
 				<li class="list-group-item"><label for="lastName"
 					class="col-sm-2 col-form-label"><b>Last Name: </b> </label><span
-					id="sideEffects" th:text="${dentist.lastName}"></span></li>
+					id="sideEffects" th:text="${patient.lastName}"></span></li>
 				<li class="list-group-item"><label for="creator"
 					class="col-sm-2 col-form-label"><b>Telephone: </b> </label><span
-					id="creator" th:text="${dentist.telephone}"></span></li>
+					id="creator" th:text="${patient.telephone}"></span></li>
 			</ul>
 		</div>
 	</div>
