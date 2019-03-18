@@ -3,9 +3,10 @@ package com.spring.dental.proj.DentalProj.services;
 import java.util.List;
 
 import com.spring.dental.proj.DentalProj.entities.Dentist;
+import com.spring.dental.proj.DentalProj.models.DentistServiceModel;
 
 public interface DentistService {
-	List<Dentist> getAllDentists();
-	Dentist getDentistById(Long id);
-	Dentist addDentist(Dentist dentist);
+	List<DentistServiceModel> getAllDentists();
+	DentistServiceModel getDentistById(Long id);
+	DentistServiceModel addDentist(DentistServiceModel dentist);
 }

@@ -2,11 +2,11 @@ package com.spring.dental.proj.DentalProj.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +26,7 @@ public class User {
 	@Column(name = "email", length = 50)
 	private String email;
 
-	@ManyToOne
-	@JoinColumn(name = "role_id")
+	@Enumerated(EnumType.STRING)
 	private Role role;
 
 	public Long getId() {

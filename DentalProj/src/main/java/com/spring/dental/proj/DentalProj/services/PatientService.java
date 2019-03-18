@@ -2,13 +2,13 @@ package com.spring.dental.proj.DentalProj.services;
 
 import java.util.List;
 
-import com.spring.dental.proj.DentalProj.entities.Patient;
+import com.spring.dental.proj.DentalProj.models.PatientServiceModel;
 
 public interface PatientService {
-	List<Patient> getAllPatients();
+	List<PatientServiceModel> getAllPatients();
 
-	Patient getPatientById(Long id);
+	PatientServiceModel getPatientById(Long id);
 
-	Patient addNewPatient(Patient patient);
+	PatientServiceModel addNewPatient(PatientServiceModel patient);
 	
 }

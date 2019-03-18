@@ -4,14 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import com.spring.dental.proj.DentalProj.entities.Dentist;
-import com.spring.dental.proj.DentalProj.entities.MedicalExamination;
+import com.spring.dental.proj.DentalProj.models.MedicalExaminationServiceModel;
 
 public interface MedicalExaminationService {
-	List<MedicalExamination> getAllMedicalExamination(Date startDate);
+	List<MedicalExaminationServiceModel> getAllMedicalExamination(Date startDate);
 
-	MedicalExamination getMedicalExamination(Long id);
+	MedicalExaminationServiceModel getMedicalExamination(Long id);
 
-	MedicalExamination saveMedicalExamination(MedicalExamination mediicalExamination);
+	MedicalExaminationServiceModel saveMedicalExamination(MedicalExaminationServiceModel mediicalExamination);
 
-	List<MedicalExamination> findMedicalExaminationsForDentist(Dentist dentist);
+	List<MedicalExaminationServiceModel> findMedicalExaminationsForDentist(Dentist dentist);
 }
