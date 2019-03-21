@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@EntityScan(basePackages = {"com.spring.dental.proj.DentalProj.entities"}) 
+@EntityScan(basePackages = {"com.spring.dental.proj.DentalProj.domain.entities"}) 
 public class DentalProjApplication {
 
 	public static void main(String[] args) {
