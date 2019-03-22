@@ -1,42 +1,34 @@
-package com.spring.dental.proj.DentalProj.domain.entities;
+package com.spring.dental.proj.DentalProj.domain.models.binding;
 
-import java.io.Serializable;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "dentist")
-public class Dentist implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 773394401244069276L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class DentistBindingModel {
+	
 	private Long id;
 
-	@Column(name ="first_name",length=40)
+	 @NotBlank(message="Invalid name")
+	    @Size(min=2, max=40,message = "First Name must be between 2 and 40 characters")
 	private String firstName;
 	
-	@Column(name ="middle_name",length=40)
+	 @NotBlank(message="Invalid name")
+	    @Size(min=2, max=40,message = "Middle Name must be between 2 and 40 characters")
 	private String middleName;
 	
-	@Column(name ="last_name",length=40)
+	 @NotBlank(message="Invalid name")
+	    @Size(min=2, max=40,message = "Last Name must be between 2 and 40 characters")
 	private String lastName;
 
-	@Column(name ="telephone",length=100)
+	@NotBlank
+	@Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\.\\/0-9]*$", message ="dentist telephone must follow the pattern +(XXX) XXX XXX XXX")
 	private String telephone;
 	
-	@Column(name ="email",length=100)
+	@NotBlank
+	@Email
 	private String email;
-
-	@Column(name = "dentis_image_path",length=200)
+	
 	private String dentistImagePath;
 
 	public Long getId() {
@@ -46,7 +38,6 @@ public class Dentist implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getFirstName() {
 		return firstName;
@@ -95,5 +86,6 @@ public class Dentist implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
+	
 }

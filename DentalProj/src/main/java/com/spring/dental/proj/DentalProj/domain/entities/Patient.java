@@ -22,20 +22,25 @@ public class Patient implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name="first_name")
+	@Column(name="first_name",length=40)
 	private String firstName;
 	
-	@Column(name="middle_name")
+	@Column(name="middle_name",length=40)
 	private String middleName;
 	
-	@Column(name="last_name")
+	@Column(name="last_name",length=40)
 	private String lastName;
 	
+	@Column(name="telephone",length=40)
 	private String telephone;
 	
+	@Column(name="email",length=40)
+	private String email;
+	
+	@Column(name="email",length=100)
 	private String address;
 	
-	@Column(name="image_path")
+	@Column(name="image_path",length=200)
 	private String imagePath;
 	
 	public Long getId() {
@@ -79,6 +84,12 @@ public class Patient implements Serializable{
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
