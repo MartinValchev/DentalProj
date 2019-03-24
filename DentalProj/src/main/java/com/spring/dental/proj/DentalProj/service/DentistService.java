@@ -11,6 +11,8 @@ public interface DentistService {
 	DentistServiceModel getDentistById(Long id);
 	DentistServiceModel addDentist(DentistServiceModel dentist);
 	
+	
+	
 	/*
 	 * constructs full image path,
 	 * sends image file using full image path

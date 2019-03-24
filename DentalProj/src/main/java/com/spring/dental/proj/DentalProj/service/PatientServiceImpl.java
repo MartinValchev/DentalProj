@@ -42,4 +42,11 @@ public class PatientServiceImpl implements PatientService {
 		return modelMapper.map(persistedPatient, PatientServiceModel.class);
 	}
 
+	@Override
+	public PatientServiceModel updatePatient(PatientServiceModel patient) {
+		Patient patientEntity= modelMapper.map(patient, Patient.class);
+		Patient updatedPatient = patientRepository.save(patientEntity);
+		return modelMapper.map(updatedPatient, PatientServiceModel.class);
+	}
+
 }

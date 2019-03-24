@@ -32,10 +32,11 @@ public class DentistController {
 	ModelMapper modelMapper;
 	
 	@GetMapping("/dentistLsit")
-	public String getDentistList(ModelAndView modelAndView) {
+	public ModelAndView getDentistList(ModelAndView modelAndView) {
 		List<DentistServiceModel> dentsitList = dentistService.getAllDentists();
 		modelAndView.addObject("dentistList", dentsitList);
-		return "dentistList";
+		modelAndView.setViewName("dentistList");
+		return modelAndView;
 	}
 	
 	@GetMapping("/dentist/{id}")

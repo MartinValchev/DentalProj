@@ -11,4 +11,6 @@ public interface PatientService {
 
 	PatientServiceModel addNewPatient(PatientServiceModel patient);
 	
+	PatientServiceModel updatePatient(PatientServiceModel patient);
+	
 }

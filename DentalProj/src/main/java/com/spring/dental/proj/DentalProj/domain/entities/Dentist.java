@@ -3,6 +3,7 @@ package com.spring.dental.proj.DentalProj.domain.entities;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,6 +39,9 @@ public class Dentist implements Serializable{
 
 	@Column(name = "dentist_image_path",length=200)
 	private String dentistImagePath;
+	
+	@Embedded
+	private Address address;
 
 	public Long getId() {
 		return id;
@@ -94,6 +98,14 @@ public class Dentist implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }

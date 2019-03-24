@@ -1,5 +1,7 @@
 package com.spring.dental.proj.DentalProj.domain.models;
 
+import com.spring.dental.proj.DentalProj.domain.entities.Address;
+
 public class PatientServiceModel {
 	private int id;
 	
@@ -13,7 +15,7 @@ public class PatientServiceModel {
 	
 	private String email;
 	
-	private String address;
+	private Address address;
 	
 	private String imagePath;
 	
@@ -47,10 +49,10 @@ public class PatientServiceModel {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 	public String getImagePath() {

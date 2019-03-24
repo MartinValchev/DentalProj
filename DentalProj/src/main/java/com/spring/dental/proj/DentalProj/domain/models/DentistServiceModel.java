@@ -1,5 +1,7 @@
 package com.spring.dental.proj.DentalProj.domain.models;
 
+import com.spring.dental.proj.DentalProj.domain.entities.Address;
+
 public class DentistServiceModel {
 	private Long id;
 
@@ -14,6 +16,8 @@ public class DentistServiceModel {
 	private String email;
 
 	private String dentistImagePath;
+	
+	private Address address;
 
 	public Long getId() {
 		return id;
@@ -69,6 +73,14 @@ public class DentistServiceModel {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 	

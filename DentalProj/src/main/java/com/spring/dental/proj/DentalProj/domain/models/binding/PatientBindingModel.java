@@ -10,8 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.dental.proj.DentalProj.utils.Messages;
 import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
 
-public class DentistBindingModel {
-	
+public class PatientBindingModel {
 	private Long id;
 
 	 @NotBlank(message="Invalid name")
@@ -34,9 +33,9 @@ public class DentistBindingModel {
 	@Pattern(regexp = ProjectConstants.TELEPHONE_REGEX_VALIDATION, message= Messages.TELEPHONE_VALIDATION_MESSAGE)
 	private String telephone;
 	
-	private String dentistImagePath;
+	private String patientImagePath;
 	
-	private MultipartFile dentistImage;
+	private MultipartFile patientImage;
 	
 	
 	@NotBlank(message="Invalid country")
@@ -105,20 +104,20 @@ public class DentistBindingModel {
 		this.email = email;
 	}
 
-	public MultipartFile getDentistImage() {
-		return dentistImage;
+	public MultipartFile getPatientImage() {
+		return patientImage;
 	}
 
-	public void setDentistImage(MultipartFile dentistImage) {
-		this.dentistImage = dentistImage;
+	public void setPatientImage(MultipartFile patientImage) {
+		this.patientImage = patientImage;
 	}
 
-	public String getDentistImagePath() {
-		return dentistImagePath;
+	public String getPatientImagePath() {
+		return patientImagePath;
 	}
 
-	public void setDentistImagePath(String dentistImagePath) {
-		this.dentistImagePath = dentistImagePath;
+	public void setPatientImagePath(String patientImagePath) {
+		this.patientImagePath = patientImagePath;
 	}
 
 	public String getCountry() {
@@ -160,6 +159,5 @@ public class DentistBindingModel {
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
-	
 	
 }
