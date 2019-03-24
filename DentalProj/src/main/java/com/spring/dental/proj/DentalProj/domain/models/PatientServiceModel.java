@@ -11,6 +11,8 @@ public class PatientServiceModel {
 	
 	private String telephone;
 	
+	private String email;
+	
 	private String address;
 	
 	private String imagePath;
@@ -57,4 +59,12 @@ public class PatientServiceModel {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 }

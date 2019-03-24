@@ -20,4 +20,5 @@ public class DentalProjApplication {
 	public ModelMapper getModelMapper() {
 		return new ModelMapper();
 	}
+	
 }

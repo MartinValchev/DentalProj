@@ -5,6 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class DentistBindingModel {
 	
 	private Long id;
@@ -19,17 +21,19 @@ public class DentistBindingModel {
 	
 	 @NotBlank(message="Invalid name")
 	    @Size(min=2, max=40,message = "Last Name must be between 2 and 40 characters")
-	private String lastName;
-
-	@NotBlank
-	@Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\.\\/0-9]*$", message ="dentist telephone must follow the pattern +(XXX) XXX XXX XXX")
-	private String telephone;
+	private String lastName;	
 	
 	@NotBlank
 	@Email
 	private String email;
 	
+	@NotBlank
+	@Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\.\\/0-9]*$", message ="dentist telephone must follow the pattern +(XXX) XXX XXX XXX")
+	private String telephone;
+	
 	private String dentistImagePath;
+	
+	private MultipartFile dentistImage;
 
 	public Long getId() {
 		return id;
@@ -71,20 +75,28 @@ public class DentistBindingModel {
 		this.telephone = telephone;
 	}
 
-	public String getDentistImagePath() {
-		return dentistImagePath;
-	}
-
-	public void setDentistImagePath(String dentistImagePath) {
-		this.dentistImagePath = dentistImagePath;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public MultipartFile getDentistImage() {
+		return dentistImage;
+	}
+
+	public void setDentistImage(MultipartFile dentistImage) {
+		this.dentistImage = dentistImage;
+	}
+
+	public String getDentistImagePath() {
+		return dentistImagePath;
+	}
+
+	public void setDentistImagePath(String dentistImagePath) {
+		this.dentistImagePath = dentistImagePath;
 	}
 	
 	

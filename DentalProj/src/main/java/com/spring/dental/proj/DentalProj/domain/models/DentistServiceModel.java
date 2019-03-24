@@ -10,6 +10,8 @@ public class DentistServiceModel {
 	private String lastName;
 
 	private String telephone;
+	
+	private String email;
 
 	private String dentistImagePath;
 
@@ -59,6 +61,14 @@ public class DentistServiceModel {
 
 	public void setDentistImagePath(String dentistImagePath) {
 		this.dentistImagePath = dentistImagePath;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

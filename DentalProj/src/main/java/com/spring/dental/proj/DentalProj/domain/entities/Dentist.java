@@ -36,7 +36,7 @@ public class Dentist implements Serializable{
 	@Column(name ="email",length=100)
 	private String email;
 
-	@Column(name = "dentis_image_path",length=200)
+	@Column(name = "dentist_image_path",length=200)
 	private String dentistImagePath;
 
 	public Long getId() {
