@@ -83,7 +83,7 @@ public class PatientController {
 		  if(bindingResult.hasErrors()){
 
 	            model.addAttribute("patientBindingModel",patientBindingModel);
-	            return "addPatient";
+	            return "editPatient";
 	        }else{
 	        	if(!patientImage.isEmpty()) {
 	        		String patientImageName = patientBindingModel.getFirstName() + "_" + patientBindingModel.getMiddleName()  + "_" +  patientBindingModel.getLastName();
