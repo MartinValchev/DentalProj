@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.PatientServiceModel;
-import com.spring.dental.proj.DentalProj.domain.models.binding.DentistBindingModel;
+import com.spring.dental.proj.DentalProj.domain.models.binding.PatientBindingModel;
 import com.spring.dental.proj.DentalProj.service.PatientService;
+import com.spring.dental.proj.DentalProj.utils.CommonService;
+import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
 
 @Controller
 public class PatientController {
@@ -35,6 +36,10 @@ public class PatientController {
   */
 	@Autowired
 	PatientService patientService;
+	
+	@Autowired
+	CommonService commonService;
+	
 	
 	@Autowired
 	ModelMapper modelMapper;
@@ -56,22 +61,39 @@ public class PatientController {
 	}
 	
 	@PostMapping("/patient/add")
-	public String addDentist(@Valid @ModelAttribute DentistBindingModel dentistBindingModel, BindingResult bindingResult, Model model,@RequestParam("dentistImage") MultipartFile dentistImage) {
+	public String addPatient(@Valid @ModelAttribute PatientBindingModel patientBindingModel, BindingResult bindingResult, Model model,@RequestParam("patientImage") MultipartFile patientImage) {
 		  if(bindingResult.hasErrors()){
 
-	            model.addAttribute("dentistBindingModel",dentistBindingModel);
-	            return "addDentist";
+	            model.addAttribute("patientBindingModel",patientBindingModel);
+	            return "addPatient";
 	        }else{
-	        	if(!dentistImage.isEmpty()) {
-	        		String dentistImageName = dentistBindingModel.getFirstName() + "_" + dentistBindingModel.getMiddleName()  + "_" +  dentistBindingModel.getLastName();
-	        		String fullDentistImagePath = dentistService.processDentistImage(dentistImageName, dentistImage);
-	        		dentistBindingModel.setDentistImagePath(fullDentistImagePath);
+	        	if(!patientImage.isEmpty()) {
+	        		String patientImageName = patientBindingModel.getFirstName() + "_" + patientBindingModel.getMiddleName()  + "_" +  patientBindingModel.getLastName();
+	        		String fullPatientImagePath = commonService.processModelImage(ProjectConstants.PATIENT_MODEL,patientImageName, patientImage);
+	        		patientBindingModel.setPatientImagePath(fullPatientImagePath);
 	        	}
-	        	DentistServiceModel dentistServiceModel =  modelMapper.map(dentistBindingModel, DentistServiceModel.class);
-	            DentistServiceModel savedDentist = dentistService.addDentist(dentistServiceModel);
-	            return "redirect:/dentist/" +  savedDentist.getId();
+	        	PatientServiceModel patientServiceModel =  modelMapper.map(patientBindingModel, PatientServiceModel.class);
+	        	PatientServiceModel savedPatient = patientService.addNewPatient(patientServiceModel);
+	            return "redirect:/patient/" +  savedPatient.getId();
 	        }
 	}
 	
+	@PostMapping("/patient/edit")
+	public String editPatient(@Valid @ModelAttribute PatientBindingModel patientBindingModel, BindingResult bindingResult, Model model,@RequestParam("patientImage") MultipartFile patientImage) {
+		  if(bindingResult.hasErrors()){
+
+	            model.addAttribute("patientBindingModel",patientBindingModel);
+	            return "addPatient";
+	        }else{
+	        	if(!patientImage.isEmpty()) {
+	        		String patientImageName = patientBindingModel.getFirstName() + "_" + patientBindingModel.getMiddleName()  + "_" +  patientBindingModel.getLastName();
+	        		String fullPatientImagePath = commonService.processModelImage(ProjectConstants.PATIENT_MODEL,patientImageName, patientImage);
+	        		patientBindingModel.setPatientImagePath(fullPatientImagePath);
+	        	}
+	        	PatientServiceModel patientServiceModel =  modelMapper.map(patientBindingModel, PatientServiceModel.class);
+	        	PatientServiceModel savedPatient = patientService.addNewPatient(patientServiceModel);
+	            return "redirect:/patient/" +  savedPatient.getId();
+	        }
+	}
 	
 }

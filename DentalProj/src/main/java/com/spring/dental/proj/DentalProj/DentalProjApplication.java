@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import com.spring.dental.proj.DentalProj.utils.CommonService;
+
 @SpringBootApplication
 @EnableConfigurationProperties
 @EntityScan(basePackages = {"com.spring.dental.proj.DentalProj.domain.entities"}) 
@@ -19,6 +21,11 @@ public class DentalProjApplication {
 	@Bean
 	public ModelMapper getModelMapper() {
 		return new ModelMapper();
+	}
+	
+	@Bean
+	public CommonService getCommonService() {
+		return new CommonService();
 	}
 	
 }

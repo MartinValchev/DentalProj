@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.DentistBindingModel;
 import com.spring.dental.proj.DentalProj.service.DentistService;
+import com.spring.dental.proj.DentalProj.utils.CommonService;
+import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
 
 
 @Controller
@@ -27,6 +29,9 @@ public class DentistController {
 
 	@Autowired
 	DentistService dentistService;
+	
+	@Autowired
+	CommonService commonService;
 	
 	@Autowired
 	ModelMapper modelMapper;
@@ -56,7 +61,7 @@ public class DentistController {
 	        }else{
 	        	if(!dentistImage.isEmpty()) {
 	        		String dentistImageName = dentistBindingModel.getFirstName() + "_" + dentistBindingModel.getMiddleName()  + "_" +  dentistBindingModel.getLastName();
-	        		String fullDentistImagePath = dentistService.processDentistImage(dentistImageName, dentistImage);
+	        		String fullDentistImagePath = commonService.processModelImage(ProjectConstants.DENTIST_MODEL, dentistImageName, dentistImage);
 	        		dentistBindingModel.setDentistImagePath(fullDentistImagePath);
 	        	}
 	        	DentistServiceModel dentistServiceModel =  modelMapper.map(dentistBindingModel, DentistServiceModel.class);
