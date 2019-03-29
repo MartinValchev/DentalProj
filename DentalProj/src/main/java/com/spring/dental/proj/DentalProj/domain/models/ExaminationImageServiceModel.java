@@ -4,8 +4,7 @@ import java.util.Date;
 
 import com.spring.dental.proj.DentalProj.domain.entities.MedicalExamination;
 
-public class ExaminationImageServiceModel {
-	private long id;
+public class ExaminationImageServiceModel extends BaseServiceModel{
 	
 	private String imageName;
 	
@@ -14,14 +13,6 @@ public class ExaminationImageServiceModel {
 	private Date uploadDate;
 	
 	private String imagePath;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getImageName() {
 		return imageName;

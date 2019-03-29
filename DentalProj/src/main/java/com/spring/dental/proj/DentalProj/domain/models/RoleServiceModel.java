@@ -1,17 +1,8 @@
 package com.spring.dental.proj.DentalProj.domain.models;
 
-public class RoleServiceModel {
-	private long id;
+public class RoleServiceModel extends BaseServiceModel{
 
 	private String roleName;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getRoleName() {
 		return roleName;

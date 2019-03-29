@@ -2,8 +2,7 @@ package com.spring.dental.proj.DentalProj.domain.models;
 
 import com.spring.dental.proj.DentalProj.domain.entities.Address;
 
-public class DentistServiceModel {
-	private Long id;
+public class DentistServiceModel extends BaseServiceModel {
 
 	private String firstName;
 	
@@ -18,14 +17,6 @@ public class DentistServiceModel {
 	private String dentistImagePath;
 	
 	private Address address;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;

@@ -2,8 +2,7 @@ package com.spring.dental.proj.DentalProj.domain.models;
 
 import com.spring.dental.proj.DentalProj.domain.entities.Role;
 
-public class UserServiceModel {
-	private Long id;
+public class UserServiceModel extends BaseServiceModel{
 
 	private String username;
 
@@ -12,14 +11,6 @@ public class UserServiceModel {
 	private String email;
 
 	private Role role;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;

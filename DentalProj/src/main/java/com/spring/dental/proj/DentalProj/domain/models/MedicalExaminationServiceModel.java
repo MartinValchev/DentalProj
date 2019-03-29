@@ -7,8 +7,7 @@ import com.spring.dental.proj.DentalProj.domain.entities.Dentist;
 import com.spring.dental.proj.DentalProj.domain.entities.ExaminationImage;
 import com.spring.dental.proj.DentalProj.domain.entities.Patient;
 
-public class MedicalExaminationServiceModel {
-	private Long id;
+public class MedicalExaminationServiceModel extends BaseServiceModel{
 
 	private String title;
 	
@@ -23,14 +22,6 @@ public class MedicalExaminationServiceModel {
 	private List<ExaminationImage> examinationImages;
 	
 	private String notes;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getTitle() {
 		return title;

@@ -5,23 +5,16 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="patient")
-public class Patient implements Serializable{
+public class Patient extends BaseEntity implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -592534090816626660L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
 	
 	@Column(name="first_name",length=40)
 	private String firstName;
@@ -43,13 +36,7 @@ public class Patient implements Serializable{
 	
 	@Column(name="image_path",length=200)
 	private String imagePath;
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public String getFirstName() {
 		return firstName;
 	}
