@@ -1,42 +1,40 @@
 package com.spring.dental.proj.DentalProj.domain.entities;
 
+import java.beans.Transient;
+import java.util.Collection;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends BaseEntity implements UserDetails{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8483005507330332125L;
 
-	@Column(name = "username", length = 50)
 	private String username;
 
-	@Column(name = "password", length = 50)
+
 	private String password;
 
 	@Column(name = "email", length = 50)
 	private String email;
 
-	@Enumerated(EnumType.STRING)
-	private Role role;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
+	private Set<Role> role;
+	
+	@Column(name = "username",nullable=false,unique=true,updatable=true, length = 50)
 	public String getUsername() {
 		return username;
 	}
@@ -44,7 +42,8 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
+	@Column(name = "password",nullable=false,updatable=true, length = 50)
 	public String getPassword() {
 		return password;
 	}
@@ -52,7 +51,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	@Column(name = "email",nullable=false,updatable=true,unique=true, length = 50)
 	public String getEmail() {
 		return email;
 	}
@@ -61,11 +60,43 @@ public class User {
 		this.email = email;
 	}
 
-	public Role getRole() {
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.role;
+	}
+
+	@Override
+	@Transient
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	@ManyToMany
+	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName="id") }, inverseJoinColumns = {
+			@JoinColumn(name = "role_id", referencedColumnName="id") })
+	public Set<Role> getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(Set<Role> role) {
 		this.role = role;
 	}
 	

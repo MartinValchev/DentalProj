@@ -3,6 +3,8 @@ package com.spring.dental.proj.DentalProj.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ws.rs.NotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +24,15 @@ public class DentistServiceImpl implements DentistService {
 
 	@Override
 	public List<DentistServiceModel> getAllDentists() {
-		List<Dentist> dentistList = dentistRepository.findAll();
-		return (dentistList != null && dentistList.size() > 0) ? dentistList.stream()
-				.map((s) -> modelMapper.map(s, DentistServiceModel.class)).collect(Collectors.toList())
-				: null;
+		List<Dentist> dentistList = dentistRepository.findAllDentist().orElseThrow(() -> new NotFoundException());
+		return dentistList.stream().map((s) -> modelMapper.map(s, DentistServiceModel.class))
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public DentistServiceModel getDentistById(Long id) {
-		Dentist dentist = dentistRepository.getOne(id);
-		return dentist !=null? modelMapper.map(dentist, DentistServiceModel.class): null;
+	public DentistServiceModel getDentistById(String id) {
+		Dentist dentist = dentistRepository.findById(id).orElseThrow(() -> new NotFoundException());
+		return modelMapper.map(dentist, DentistServiceModel.class);
 
 	}
 
@@ -42,5 +43,11 @@ public class DentistServiceImpl implements DentistService {
 		return modelMapper.map(dentistsSavedEntity, DentistServiceModel.class);
 	}
 
+	@Override
+	public DentistServiceModel editDentist(DentistServiceModel dentist) {
+		Dentist persistanceEntity = modelMapper.map(dentist, Dentist.class);
+		Dentist dentistsSavedEntity = dentistRepository.save(persistanceEntity);
+		return modelMapper.map(dentistsSavedEntity, DentistServiceModel.class);
+	}
 
 }

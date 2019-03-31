@@ -1,6 +1,7 @@
 package com.spring.dental.proj.DentalProj.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,9 +17,10 @@ public interface MedicalExaminationRepository extends JpaRepository<MedicalExami
 
 	// get medical examinations by dentist and provided start
 	@Query(name = "SELECT e from MedicalExamination e where e.dentist=:dentist")
-	List<MedicalExamination> getMedicalExaminationsByDentist(@Param(value="dentist")Dentist dentist);
+	Optional<List<MedicalExamination>> getMedicalExaminationsByDentist(@Param(value="dentist")Dentist dentist);
 
 	@Query(name = "SELECT e from MedicalExamination e where e.patient=:patient")
-	List<MedicalExamination> getMedicalExaminationsByPatient(@Param(value="patient")Patient patient);
-
+	Optional<List<MedicalExamination>> getMedicalExaminationsByPatient(@Param(value="patient")Patient patient);
+	
+	Optional<List<MedicalExamination>> findAllMedicalExaminationsByPatient();
 }

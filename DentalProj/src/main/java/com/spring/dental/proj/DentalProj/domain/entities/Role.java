@@ -1,7 +1,29 @@
 package com.spring.dental.proj.DentalProj.domain.entities;
 
-public enum Role {
-	DENTIST,
-	PATIENT,
-	ADMIN
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+
+
+@Entity
+@Table(name="roles")
+public class Role extends BaseEntity implements GrantedAuthority{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6415887008750355140L;
+	
+	private String authority;
+
+	public Role() {}
+	public Role(String authority) {
+		this.authority = authority;
+	}
+	@Override
+	public String getAuthority() {
+		return this.authority;
+	}
+
 }
