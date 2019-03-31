@@ -1,6 +1,6 @@
 package com.spring.dental.proj.DentalProj.domain.models;
 
-public class BaseServiceModel {
+public abstract class BaseServiceModel {
 
     private String id;
 

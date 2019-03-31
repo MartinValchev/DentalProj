@@ -24,16 +24,10 @@ public class User extends BaseEntity implements UserDetails{
 	private static final long serialVersionUID = 8483005507330332125L;
 
 	private String username;
-
-
 	private String password;
-
-	@Column(name = "email", length = 50)
 	private String email;
+	private Set<Role> authorities;
 
-	
-	private Set<Role> role;
-	
 	@Column(name = "username",nullable=false,unique=true,updatable=true, length = 50)
 	public String getUsername() {
 		return username;
@@ -62,7 +56,7 @@ public class User extends BaseEntity implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.role;
+		return this.authorities;
 	}
 
 	@Override
@@ -93,11 +87,11 @@ public class User extends BaseEntity implements UserDetails{
 	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName="id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id", referencedColumnName="id") })
 	public Set<Role> getRole() {
-		return role;
+		return authorities;
 	}
 
-	public void setRole(Set<Role> role) {
-		this.role = role;
+	public void setRole(Set<Role> authorities) {
+		this.authorities = authorities;
 	}
 	
 	

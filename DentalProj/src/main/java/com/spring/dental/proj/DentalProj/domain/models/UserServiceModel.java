@@ -1,17 +1,16 @@
 package com.spring.dental.proj.DentalProj.domain.models;
 
+import java.util.Set;
+
 import com.spring.dental.proj.DentalProj.domain.entities.Role;
 
 public class UserServiceModel extends BaseServiceModel{
 
 	private String username;
-
 	private String password;
-
 	private String email;
-
-	private Role role;
-
+	private Set<Role> authorities;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -36,12 +35,14 @@ public class UserServiceModel extends BaseServiceModel{
 		this.email = email;
 	}
 
-	public Role getRole() {
-		return role;
+	public Set<Role> getAuthorities() {
+		return authorities;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setAuthorities(Set<Role> authorities) {
+		this.authorities = authorities;
 	}
+
+	
 	
 }

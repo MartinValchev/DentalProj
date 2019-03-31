@@ -2,13 +2,13 @@ package com.spring.dental.proj.DentalProj.domain.models;
 
 public class RoleServiceModel extends BaseServiceModel{
 
-	private String roleName;
+	private String authority;
 
-	public String getRoleName() {
-		return roleName;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 }

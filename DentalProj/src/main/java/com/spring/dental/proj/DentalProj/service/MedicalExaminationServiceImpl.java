@@ -3,6 +3,8 @@ package com.spring.dental.proj.DentalProj.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ws.rs.NotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +48,7 @@ public class MedicalExaminationServiceImpl implements MedicalExaminationService 
 	@Override
 	public List<MedicalExaminationServiceModel> findMedicalExaminationsForDentist(Dentist dentist) {
 		List<MedicalExamination> medicalExaminationList = medicalExaminationRepository
-				.getMedicalExaminationsByDentist(dentist);
+				.getMedicalExaminationsByDentist(dentist).orElseThrow(()-> new NotFoundException());
 		return (medicalExaminationList != null && medicalExaminationList.size() > 0) ? medicalExaminationList.stream()
 				.map(s -> modelMapper.map(s, MedicalExaminationServiceModel.class)).collect(Collectors.toList())
 				: null;
