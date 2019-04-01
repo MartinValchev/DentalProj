@@ -46,9 +46,9 @@ public class DentistController {
 	
 	@GetMapping("/dentist/{id}")
 	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") Long id) {
-		DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
+	/*	DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
 		modelAndView.addObject("dentist", dentistServiceModel);
-		modelAndView.setViewName("dentist");
+		modelAndView.setViewName("dentist");*/
 		return modelAndView;
 	}
 	

@@ -13,7 +13,7 @@ import com.spring.dental.proj.DentalProj.domain.entities.MedicalExamination;
 import com.spring.dental.proj.DentalProj.domain.entities.Patient;
 
 @Repository
-public interface MedicalExaminationRepository extends JpaRepository<MedicalExamination, Long> {
+public interface MedicalExaminationRepository extends JpaRepository<MedicalExamination, String> {
 
 	// get medical examinations by dentist and provided start
 	@Query(name = "SELECT e from MedicalExamination e where e.dentist=:dentist")

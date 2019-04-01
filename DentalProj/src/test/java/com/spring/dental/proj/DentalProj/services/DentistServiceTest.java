@@ -73,21 +73,21 @@ public class DentistServiceTest {
 	@Test 
 	public void whenFindDentistById_returnDentist() {
 		Dentist pesho = new Dentist();
-		pesho.setId(1L);
+		pesho.setId("54545abc");
 		pesho.setFirstName("Pesho");
 		pesho.setMiddleName("Savov");
 		pesho.setLastName("Georgiev");
 		pesho.setTelephone("555-214");
 		pesho.setDentistImagePath("C:\\test\\images\\pesho.jpg");
-		Mockito.when(dentistRepository.getOne(new Long(1L))).thenReturn(pesho);
-		DentistServiceModel foundDentist = dentistService.getDentistById(new Long(1L));
+		Mockito.when(dentistRepository.getOne("54545abc")).thenReturn(pesho);
+		DentistServiceModel foundDentist = dentistService.getDentistById("54545abc");
 		assertNotNull(foundDentist);
 		assertEquals("Pesho",foundDentist.getFirstName());
 	}
 	@Test 
 	public void whenFindDentistById_returnNull() {
 		Mockito.when(dentistRepository.findAll()).thenReturn(new ArrayList<>());
-		DentistServiceModel foundDentist = dentistService.getDentistById(new Long(1L));
+		DentistServiceModel foundDentist = dentistService.getDentistById("54545abc");
 		assertNull(foundDentist);
 	}
 	

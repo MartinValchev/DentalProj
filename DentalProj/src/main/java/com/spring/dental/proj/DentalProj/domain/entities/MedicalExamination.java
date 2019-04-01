@@ -21,22 +21,11 @@ public class MedicalExamination extends BaseEntity implements Serializable{
 	private static final long serialVersionUID = 4409758989152454460L;
 
 	private String title;
-	
-	@ManyToOne
-	@JoinColumn(name="dentist_id")
-	private Dentist dentist;
-	
-	@ManyToOne
-	@JoinColumn(name="patient_id")
+	private Dentist dentist;	
 	private Patient patient;
-
-	@Column(name = "start_date")
-	private Date startDate;
-
-	@Column(name = "end_date")
+	private Date startDate;	
 	private Date endDate;
-
-	@OneToMany(mappedBy = "medicalExamination")
+	
 	private List<ExaminationImage> examinationImages;
 	
 	private String notes;
@@ -49,6 +38,7 @@ public class MedicalExamination extends BaseEntity implements Serializable{
 		this.title = title;
 	}
 
+	@Column(name = "start_date")
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -57,6 +47,7 @@ public class MedicalExamination extends BaseEntity implements Serializable{
 		this.startDate = startDate;
 	}
 
+	@Column(name = "end_date")
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -64,7 +55,8 @@ public class MedicalExamination extends BaseEntity implements Serializable{
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-
+	
+	@OneToMany(mappedBy = "medicalExamination")
 	public List<ExaminationImage> getExaminationImages() {
 		return examinationImages;
 	}
@@ -72,7 +64,8 @@ public class MedicalExamination extends BaseEntity implements Serializable{
 	public void setExaminationImages(List<ExaminationImage> examinationImages) {
 		this.examinationImages = examinationImages;
 	}
-
+	
+	@Column(name = "notes")
 	public String getNotes() {
 		return notes;
 	}
@@ -81,6 +74,8 @@ public class MedicalExamination extends BaseEntity implements Serializable{
 		this.notes = notes;
 	}
 
+	@ManyToOne
+	@JoinColumn(name="patient_id")
 	public Patient getPatient() {
 		return patient;
 	}
@@ -88,7 +83,9 @@ public class MedicalExamination extends BaseEntity implements Serializable{
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-
+	
+	@ManyToOne
+	@JoinColumn(name="dentist_id")
 	public Dentist getDentist() {
 		return dentist;
 	}

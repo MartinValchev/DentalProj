@@ -8,7 +8,7 @@ import com.spring.dental.proj.DentalProj.domain.models.MedicalExaminationService
 public interface MedicalExaminationService {
 	List<MedicalExaminationServiceModel> getAllMedicalExaminations();
 
-	MedicalExaminationServiceModel getMedicalExamination(Long id);
+	MedicalExaminationServiceModel getMedicalExamination(String inputId);
 
 	MedicalExaminationServiceModel saveMedicalExamination(MedicalExaminationServiceModel mediicalExamination);
 

@@ -32,7 +32,7 @@ public class MedicalExaminationServiceImpl implements MedicalExaminationService 
 	}
 
 	@Override
-	public MedicalExaminationServiceModel getMedicalExamination(Long id) {
+	public MedicalExaminationServiceModel getMedicalExamination(String id) {
 		MedicalExamination medicalExamination = medicalExaminationRepository.getOne(id);
 		return medicalExamination != null ? modelMapper.map(medicalExamination, MedicalExaminationServiceModel.class)
 				: null;

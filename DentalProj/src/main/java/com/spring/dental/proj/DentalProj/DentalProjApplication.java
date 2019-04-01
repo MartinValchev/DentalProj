@@ -18,14 +18,6 @@ public class DentalProjApplication {
 		SpringApplication.run(DentalProjApplication.class, args);
 	}
 	
-	@Bean
-	public ModelMapper getModelMapper() {
-		return new ModelMapper();
-	}
-	
-	@Bean
-	public CommonService getCommonService() {
-		return new CommonService();
-	}
+
 	
 }

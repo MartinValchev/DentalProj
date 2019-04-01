@@ -1,7 +1,6 @@
 package com.spring.dental.proj.DentalProj.domain.entities;
 
 import java.beans.Transient;
-import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -28,6 +26,8 @@ public class User extends BaseEntity implements UserDetails{
 	private String email;
 	private Set<Role> authorities;
 
+	public User() {}
+	
 	@Column(name = "username",nullable=false,unique=true,updatable=true, length = 50)
 	public String getUsername() {
 		return username;
@@ -52,11 +52,6 @@ public class User extends BaseEntity implements UserDetails{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.authorities;
 	}
 
 	@Override
@@ -86,13 +81,13 @@ public class User extends BaseEntity implements UserDetails{
 	@ManyToMany
 	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName="id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id", referencedColumnName="id") })
-	public Set<Role> getRole() {
-		return authorities;
+	public Set<Role> getAuthorities() {
+		return this.authorities;
 	}
 
-	public void setRole(Set<Role> authorities) {
+	public void setAuthorities(Set<Role> authorities) {
 		this.authorities = authorities;
 	}
-	
+
 	
 }

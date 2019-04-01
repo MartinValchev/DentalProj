@@ -18,11 +18,10 @@ public class ExaminationImage extends BaseEntity implements Serializable{
 	private static final long serialVersionUID = 7252751511414345167L;
 
 	
-	@Column(name="image_name")
+	
 	private String imageName;
 	
-	@ManyToOne
-	@JoinColumn(name="medical_examination_id")
+	
 	private MedicalExamination medicalExamination;
 	
 	@Column(name = "upload_date")
@@ -30,7 +29,9 @@ public class ExaminationImage extends BaseEntity implements Serializable{
 	
 	@Column(name = "image_path")
 	private String imagePath;
-
+	
+	
+	@Column(name="image_name",unique=true,updatable=true)
 	public String getImageName() {
 		return imageName;
 	}
@@ -39,6 +40,8 @@ public class ExaminationImage extends BaseEntity implements Serializable{
 		this.imageName = imageName;
 	}
 
+	@ManyToOne
+	@JoinColumn(name="medical_examination_id")
 	public MedicalExamination getMedicalExamination() {
 		return medicalExamination;
 	}

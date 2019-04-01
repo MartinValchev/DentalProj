@@ -55,9 +55,9 @@ public class MedicalExaminationRepositoryTest {
 	@Test
 	public void should_find_one_medicalExaminations_if_one_examination_added() {
 		MedicalExamination expectedMedicalExamination= TestUtils.getTestMedicalExamination();
-		Long inputId = expectedMedicalExamination.getId();
+		String inputId = expectedMedicalExamination.getId();
 		MedicalExaminationServiceModel  medicalExaminationServiceModel =modelMapper.map(expectedMedicalExamination, MedicalExaminationServiceModel.class);
-		Mockito.when(medicalExaminationRepository.getOne(Mockito.anyLong())).thenReturn(expectedMedicalExamination);
+		Mockito.when(medicalExaminationRepository.getOne(Mockito.anyString())).thenReturn(expectedMedicalExamination);
 		MedicalExaminationServiceModel actualServiceModel  = medicalExaminationService.getMedicalExamination(inputId);
 		assertNotNull(actualServiceModel);
 		assertEquals(inputId,actualServiceModel.getId());
