@@ -10,8 +10,8 @@ import com.spring.dental.proj.DentalProj.domain.entities.Patient;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
+
+	Optional<Patient> findById(String id);
 	
-	Optional<Patient> findPatientById();
-	
-	Optional<List<Patient>> findAllPatients();
+	List<Patient> findAll();
 }

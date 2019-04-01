@@ -20,7 +20,7 @@ public class TestUtils {
 		dentist.setMiddleName("Kirilov");
 		dentist.setLastName("Pavlov");
 		dentist.setEmail("velko.pavlov@abv.bg");
-		dentist.setId(32L);
+		dentist.setId("32abc");
 		dentist.setTelephone("0885 152 147");
 		dentist.setDentistImagePath("E:\\Projects2\\DentalProj\\velko.jpg");
 		return dentist;
@@ -31,7 +31,7 @@ public class TestUtils {
 		dentist1.setFirstName("Petar");
 		dentist1.setMiddleName("Svetoslavov");
 		dentist1.setLastName("Ivanov");
-		dentist1.setId(32L);
+		dentist1.setId("32abc");
 		dentist1.setEmail("petar.iavanov@mail.com");
 		dentist1.setTelephone("0885 152 132");
 		dentist1.setDentistImagePath("E:\\Projects2\\DentalProj\\petar.jpg");
@@ -39,7 +39,7 @@ public class TestUtils {
 		dentist1.setFirstName("Iva");
 		dentist1.setMiddleName("Georgieva");
 		dentist1.setLastName("Lilova");
-		dentist1.setId(32L);
+		dentist1.setId("32abc");
 		dentist1.setTelephone("0885 147 136");
 		dentist1.setDentistImagePath("E:\\Projects2\\DentalProj\\petar.jpg");
 		testDentistList.add(getTestDentist());
@@ -52,7 +52,7 @@ public class TestUtils {
 		patient.setFirstName("Nora");
 		patient.setMiddleName("Nikodimova");
 		patient.setLastName("Hristova");
-		patient.setId(21L);
+		patient.setId("21gfd");
 		patient.setEmail("nora.hristova@mail.com");
 		patient.setTelephone("0885 111 132");
 		patient.setImagePath("E:\\Projects2\\DentalProj\\nora.jpg");
@@ -65,7 +65,7 @@ public class TestUtils {
 		patient1.setFirstName("Slavi");
 		patient1.setMiddleName("Petrov");
 		patient1.setLastName("Svilenov");
-		patient1.setId(22L);
+		patient1.setId("22afg");
 		patient1.setTelephone("0885 143 112");
 		patient1.setEmail("slavi.svilenov@mail.com");
 		patient1.setImagePath("E:\\Projects2\\DentalProj\\slavi.jpg");
@@ -73,7 +73,7 @@ public class TestUtils {
 		patient2.setFirstName("Olq");
 		patient2.setMiddleName("Stamatova");
 		patient2.setLastName("Ivanova");
-		patient2.setId(24L);
+		patient2.setId("24dfe");
 		patient1.setEmail("olq.ivanova@mail.com");
 		patient2.setTelephone("0886 105 160");
 		patient2.setImagePath("E:\\Projects2\\DentalProj\\olq.jpg");
@@ -86,16 +86,16 @@ public class TestUtils {
 		MedicalExamination medicalExamination = new MedicalExamination();
 		medicalExamination.setDentist(getTestDentist());
 		medicalExamination.setPatient(getTestPatient());
-		medicalExamination.setId(321L);	
+		medicalExamination.setId("432dss");	
 		ExaminationImage image1 = new ExaminationImage();
-		image1.setId(256L);
+		image1.setId("256sd");
 		image1.setImageName("examination1.jpg");
 		image1.setImagePath("E:\\Projects2\\DentalProj\\examination1.jpg");
 		image1.setMedicalExamination(medicalExamination);
 		image1.setUploadDate(new Date());
 		
 		ExaminationImage image2 = new ExaminationImage();
-		image1.setId(253L);
+		image1.setId("253e");
 		image1.setImageName("examination2.jpg");
 		image1.setImagePath("E:\\Projects2\\DentalProj\\examination2.jpg");
 		image1.setMedicalExamination(medicalExamination);
@@ -126,13 +126,13 @@ public class TestUtils {
 		patient2.setFirstName("Olq");
 		patient2.setMiddleName("Stamatova");
 		patient2.setLastName("Ivanova");
-		patient2.setId(24L);
+		patient2.setId("24de");
 		patient2.setEmail("olq.ivanova@mail.com");
 		patient2.setTelephone("0886 105 160");
 		patient2.setImagePath("E:\\Projects2\\DentalProj\\olq.jpg");
 		medicalExamination.setDentist(getTestDentist());
 		medicalExamination.setPatient(patient2);
-		medicalExamination.setId(301L);	
+		medicalExamination.setId("301L");	
 		medicalExamination.setTitle("Olq dental examination");
 			try {
 				SimpleDateFormat sdf_start = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
@@ -154,11 +154,11 @@ public class TestUtils {
 	}
 	public User generateTestUser() {
 		User user = new User();
-		user.setId(32L);
+		user.setId("32L");
 		user.setEmail("pesho@abv.bg");
 		user.setPassword("test123");
 		user.setUsername("pesho");
-		user.setRole(Role.ADMIN);
+		user.getAuthorities().add(new Role("ROLE_ADMIN"));
 		return user;
 	}
 }

@@ -48,11 +48,11 @@ public class MedicalExaminationServiceImpl implements MedicalExaminationService 
 	@Override
 	public List<MedicalExaminationServiceModel> findMedicalExaminationsForDentist(Dentist dentist) {
 		List<MedicalExamination> medicalExaminationList = medicalExaminationRepository
-				.getMedicalExaminationsByDentist(dentist).orElseThrow(()-> new NotFoundException());
+				.getMedicalExaminationsByDentistId(dentist.getId());
 		return (medicalExaminationList != null && medicalExaminationList.size() > 0) ? medicalExaminationList.stream()
 				.map(s -> modelMapper.map(s, MedicalExaminationServiceModel.class)).collect(Collectors.toList())
 				: null;
-
+		
 	}
 
 }

@@ -90,7 +90,7 @@ public class MedicalExaminationRepositoryTest {
 		medicalExaminationServiceModelList.add(medicalExaminationServiceModel);
 		List<MedicalExamination> expectedList = new ArrayList<>();
 		expectedList.add(expectedMedicalExamination);
-		Mockito.when(medicalExaminationRepository.getMedicalExaminationsByDentist(Mockito.any(Dentist.class))).thenReturn(expectedList);
+		Mockito.when(medicalExaminationRepository.getMedicalExaminationsByDentistId(Mockito.anyString())).thenReturn(expectedList);
 		List<MedicalExaminationServiceModel> actualServiceModelList =medicalExaminationService.findMedicalExaminationsForDentist(dentist);
 		assertNotNull(actualServiceModelList);
 		assertEquals(medicalExaminationServiceModelList.size(),1);

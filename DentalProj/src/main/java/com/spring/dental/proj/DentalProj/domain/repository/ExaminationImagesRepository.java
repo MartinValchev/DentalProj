@@ -11,7 +11,7 @@ import com.spring.dental.proj.DentalProj.domain.entities.ExaminationImage;
 @Repository
 public interface ExaminationImagesRepository extends JpaRepository<ExaminationImage, String> {
 	
-	Optional<List<ExaminationImage>> getAllExaminationImages();
+	List<ExaminationImage> findAll();
 
 	Optional<ExaminationImage> findExaminationImageById(String id);
 }

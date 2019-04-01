@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.spring.dental.proj.DentalProj.domain.entities.Role;
 import com.spring.dental.proj.DentalProj.domain.models.RoleServiceModel;
-import com.spring.dental.proj.DentalProj.domain.models.UserServiceModel;
 import com.spring.dental.proj.DentalProj.domain.repository.RoleRepository;
 
 @Service
@@ -17,14 +16,11 @@ public class RolesServiceImpl implements RoleService {
 
 	private final RoleRepository roleRepository;
 	private ModelMapper modelMapper;
-	private final UserService userService;
 
 	@Autowired
-	public RolesServiceImpl(RoleRepository roleRepository, ModelMapper modelMapper, UserService userService) {
-		super();
+	public RolesServiceImpl(RoleRepository roleRepository, ModelMapper modelMapper) {
 		this.roleRepository = roleRepository;
 		this.modelMapper = modelMapper;
-		this.userService = userService;
 	}
 
 	@Override

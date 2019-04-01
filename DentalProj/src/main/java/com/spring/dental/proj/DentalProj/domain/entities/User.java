@@ -1,6 +1,5 @@
 package com.spring.dental.proj.DentalProj.domain.entities;
 
-import java.beans.Transient;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -9,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

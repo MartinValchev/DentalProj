@@ -24,7 +24,7 @@ public class DentistServiceImpl implements DentistService {
 
 	@Override
 	public List<DentistServiceModel> getAllDentists() {
-		List<Dentist> dentistList = dentistRepository.findAllDentist().orElseThrow(() -> new NotFoundException());
+		List<Dentist> dentistList = dentistRepository.findAll();
 		return dentistList.stream().map((s) -> modelMapper.map(s, DentistServiceModel.class))
 				.collect(Collectors.toList());
 	}
