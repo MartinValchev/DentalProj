@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -24,6 +25,7 @@ public class User extends BaseEntity implements UserDetails{
 	private String username;
 	private String password;
 	private String email;
+	
 	private Set<Role> authorities;
 
 	public User() {}
@@ -37,7 +39,7 @@ public class User extends BaseEntity implements UserDetails{
 		this.username = username;
 	}
 	
-	@Column(name = "password",nullable=false,updatable=true, length = 50)
+	@Column(name = "password",nullable=false,updatable=true, length = 100)
 	public String getPassword() {
 		return password;
 	}
@@ -78,8 +80,8 @@ public class User extends BaseEntity implements UserDetails{
 		return true;
 	}
 	
-	@ManyToMany
-	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName="id") }, inverseJoinColumns = {
+	@ManyToMany(targetEntity=Role.class, fetch= FetchType.EAGER)
+	@JoinTable(name = "users_roles",joinColumns = { @JoinColumn(name = "user_id", referencedColumnName="id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id", referencedColumnName="id") })
 	public Set<Role> getAuthorities() {
 		return this.authorities;
