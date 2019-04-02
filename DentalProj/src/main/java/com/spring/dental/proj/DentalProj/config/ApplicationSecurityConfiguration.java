@@ -14,8 +14,9 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().disable()
 		.csrf()
-		.disable().authorizeRequests()
-		.antMatchers("/js/**,/css/**").permitAll()
+		.disable()
+		.authorizeRequests()
+		.antMatchers("/js/**","/css/**").permitAll()
 		.antMatchers("/","/register" ,"/login").anonymous()
 		.anyRequest().authenticated()
 		.and()
@@ -25,6 +26,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 		.passwordParameter("password")
 		.defaultSuccessUrl("/home")
 		.and()
-		.logout().logoutUrl("/");
+		.logout()
+		.logoutSuccessUrl("/");
 	}
 }
