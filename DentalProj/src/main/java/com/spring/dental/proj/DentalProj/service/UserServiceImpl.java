@@ -2,6 +2,8 @@ package com.spring.dental.proj.DentalProj.service;
 
 import java.util.LinkedHashSet;
 
+import javax.ws.rs.NotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,9 +43,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserServiceModel registerUser(UserServiceModel userServiceModel) {
 		this.roleService.seedRolesInDB();
-		if(this.userRepository.count()==0) {
-		userServiceModel.setAuthorities(this.roleService.findAllRoles());
-		}else {
+		if (this.userRepository.count() == 0) {
+			userServiceModel.setAuthorities(this.roleService.findAllRoles());
+		} else {
 			userServiceModel.setAuthorities(new LinkedHashSet<>());
 			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
 		}
@@ -53,6 +55,28 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(ecnryptedPassword);
 		User persistedUser = this.userRepository.saveAndFlush(user);
 		return this.modelMapper.map(persistedUser, UserServiceModel.class);
+	}
+
+	@Override
+	public UserServiceModel findUserByUsername(String username) {
+		return this.userRepository.findByUsername(username).map(r -> modelMapper.map(r, UserServiceModel.class))
+				.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+	}
+
+	@Override
+	public UserServiceModel editUserProfile(UserServiceModel userServiceModel, String oldPassword) {
+		User user = this.userRepository.findByUsername(userServiceModel.getUsername())
+				.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+		if (!this.bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
+			throw new IllegalArgumentException("incorrect password");
+		}
+		if (!"".equals(userServiceModel.getPassword())) {
+			this.bCryptPasswordEncoder.encode(userServiceModel.getPassword());
+		} else {
+			userServiceModel.setPassword(user.getPassword());
+		}
+		user.setEmail(userServiceModel.getEmail());
+		return this.modelMapper.map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
 	}
 
 }

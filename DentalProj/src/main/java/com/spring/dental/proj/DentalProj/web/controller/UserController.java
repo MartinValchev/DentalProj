@@ -1,5 +1,9 @@
 package com.spring.dental.proj.DentalProj.web.controller;
 
+import java.security.Principal;
+
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.dental.proj.DentalProj.domain.models.UserServiceModel;
+import com.spring.dental.proj.DentalProj.domain.models.binding.UserEditBindingModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.UserRegisterBindingModel;
+import com.spring.dental.proj.DentalProj.domain.models.service.view.UserProfileViewModel;
 import com.spring.dental.proj.DentalProj.service.UserService;
 
 @Controller
@@ -49,4 +55,34 @@ public class UserController extends BaseController{
 		
 		return super.view("login");
 	}
+	
+	@GetMapping("/profile")
+	@PreAuthorize("isAuthenticated()")
+	public ModelAndView profile(Principal principal, ModelAndView modelAndView) {
+		modelAndView.addObject( "model",this.modelMapper
+				.map(this.userService.findUserByUsername(principal.getName())
+						, UserProfileViewModel.class));
+		return super.view("profile", modelAndView);
+		//return super.view("profile");
+	}
+	@GetMapping("/edit")
+	@PreAuthorize("isAuthenticated()")
+	public ModelAndView editProfile(Principal principal, ModelAndView modelAndView) {
+		modelAndView.addObject( "model",this.modelMapper
+				.map(this.userService.findUserByUsername(principal.getName())
+						, UserProfileViewModel.class));
+		return super.view("editProfile", modelAndView);
+	}
+	
+	@PostMapping("/edit")
+	@PreAuthorize("isAuthenticated()")
+	public ModelAndView updateProfile(@ModelAttribute UserEditBindingModel model) {
+		if((!model.getPassword().equals(model.getConfirmPassword()))) {
+			return super.view("editProfile");
+		}
+		this.userService.editUserProfile(this.modelMapper.map(model, UserServiceModel.class), model.getOldPassword());
+		return super.redirect("/users/profile");
+		
+	}
+
 }
