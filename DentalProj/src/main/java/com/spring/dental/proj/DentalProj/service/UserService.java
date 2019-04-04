@@ -1,5 +1,7 @@
 package com.spring.dental.proj.DentalProj.service;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -12,4 +14,5 @@ public interface UserService extends UserDetailsService{
 	 
 	 UserServiceModel findUserByUsername(String username);
 	 UserServiceModel editUserProfile(UserServiceModel userServiceModel, String oldPassword);
+	 List<UserServiceModel> findAllUsers();
 }

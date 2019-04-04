@@ -1,8 +1,8 @@
 package com.spring.dental.proj.DentalProj.web.controller;
 
 import java.security.Principal;
-
-import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.dental.proj.DentalProj.domain.models.UserServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.UserEditBindingModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.UserRegisterBindingModel;
+import com.spring.dental.proj.DentalProj.domain.models.service.view.UserAllViewModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.UserProfileViewModel;
 import com.spring.dental.proj.DentalProj.service.UserService;
 
@@ -83,6 +84,23 @@ public class UserController extends BaseController{
 		this.userService.editUserProfile(this.modelMapper.map(model, UserServiceModel.class), model.getOldPassword());
 		return super.redirect("/users/profile");
 		
+	}
+	
+	@GetMapping("/allProfiles")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ModelAndView getAllProfiles(ModelAndView modelAndView) {
+		List<UserAllViewModel> profiles=  this.userService
+				.findAllUsers()
+				.stream()
+				.map(r -> {UserAllViewModel profile = this.modelMapper.map(r, UserAllViewModel.class);
+				profile.setAuthorities(r.getAuthorities().stream()
+						.map(p -> this.modelMapper.map(p.getAuthority(), String.class))
+						.collect(Collectors.toSet()));
+				return profile;
+				})
+				.collect(Collectors.toList());
+		modelAndView.addObject("profiles", profiles);
+		return super.view("profileList", modelAndView);
 	}
 
 }

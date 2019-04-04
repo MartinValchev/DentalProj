@@ -1,8 +1,8 @@
 package com.spring.dental.proj.DentalProj.service;
 
 import java.util.LinkedHashSet;
-
-import javax.ws.rs.NotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +77,15 @@ public class UserServiceImpl implements UserService {
 		}
 		user.setEmail(userServiceModel.getEmail());
 		return this.modelMapper.map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
+	}
+
+	@Override
+	public List<UserServiceModel> findAllUsers() {
+		return this.userRepository
+				.findAll()
+				.stream()
+				.map(r-> this.modelMapper.map(r, UserServiceModel.class))
+				.collect(Collectors.toList());
 	}
 
 }

@@ -23,6 +23,5 @@ public class UserProfileViewModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 		
 }
