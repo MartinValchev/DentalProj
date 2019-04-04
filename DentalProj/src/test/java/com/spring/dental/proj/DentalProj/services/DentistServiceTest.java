@@ -54,7 +54,7 @@ public class DentistServiceTest {
 		List<Dentist> dentistList = new ArrayList<>();
 		Mockito.when(dentistRepository.findAll()).thenReturn(dentistList);
 		List<DentistServiceModel> dentistModelList = dentistService.getAllDentists();
-		assertNull(dentistModelList);
+		assertEquals(new ArrayList<>(), dentistModelList);
 	}
 
 	@Test

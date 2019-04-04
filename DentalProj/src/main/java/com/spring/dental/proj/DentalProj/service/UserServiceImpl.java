@@ -88,4 +88,10 @@ public class UserServiceImpl implements UserService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public UserServiceModel findUserById(String id) {
+		return this.userRepository.findById(id).map(r -> modelMapper.map(r, UserServiceModel.class))
+				.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+	}
+
 }

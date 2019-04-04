@@ -6,19 +6,23 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.dental.proj.DentalProj.domain.models.RoleServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.UserServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.UserEditBindingModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.UserRegisterBindingModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.UserAllViewModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.UserProfileViewModel;
+import com.spring.dental.proj.DentalProj.service.RoleService;
 import com.spring.dental.proj.DentalProj.service.UserService;
 
 @Controller
@@ -26,12 +30,14 @@ import com.spring.dental.proj.DentalProj.service.UserService;
 public class UserController extends BaseController{
 	private final UserService userService;
 	private final ModelMapper modelMapper;
+	private final RoleService roleService;
 	
 	@Autowired
-	public UserController(UserService userService, ModelMapper modelMapper) {
+	public UserController(UserService userService, ModelMapper modelMapper,RoleService roleService) {
 		super();
 		this.userService = userService;
 		this.modelMapper = modelMapper;
+		this.roleService = roleService;
 	}
 
 	@GetMapping("/register")
@@ -102,5 +108,35 @@ public class UserController extends BaseController{
 		modelAndView.addObject("profiles", profiles);
 		return super.view("profileList", modelAndView);
 	}
-
+	
+	@PostMapping("/set-{role}/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ModelAndView setModeratorRole(@PathVariable("role")String role, @PathVariable("id")String id, ModelAndView modelAndView) {
+		UserServiceModel userServiceModel = this.userService.findUserById(id);
+		String authority= null;
+		switch (role){
+		case "moderator": authority= "ROLE_MODERATOR"; break;
+		case "admin": authority= "ROLE_ADMIN"; break;
+		default: authority= "ROLE_USER"; break;
+		}
+		RoleServiceModel roleServiceModel =this.roleService.findByAuthority(authority);
+		
+		userServiceModel.getAuthorities().add(roleServiceModel);
+		this.userService.editUserProfile(userServiceModel, userServiceModel.getPassword());
+		List<UserAllViewModel> profiles=  this.userService
+				.findAllUsers()
+				.stream()
+				.map(r -> {UserAllViewModel profile = this.modelMapper.map(r, UserAllViewModel.class);
+				profile.setAuthorities(r.getAuthorities().stream()
+						.map(p -> this.modelMapper.map(p.getAuthority(), String.class))
+						.collect(Collectors.toSet()));
+				return profile;
+				})
+				.collect(Collectors.toList());
+		modelAndView.addObject("profiles", profiles);
+		return super.view("profileList", modelAndView);
+	}
+	
+	
+	
 }
