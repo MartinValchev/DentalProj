@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.dental.proj.DentalProj.domain.entities.Role;
 import com.spring.dental.proj.DentalProj.domain.entities.User;
 import com.spring.dental.proj.DentalProj.domain.models.UserServiceModel;
 import com.spring.dental.proj.DentalProj.domain.repository.UserRepository;
@@ -78,6 +79,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(userServiceModel.getEmail());
 		return this.modelMapper.map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
 	}
+	
 
 	@Override
 	public List<UserServiceModel> findAllUsers() {
@@ -92,6 +94,21 @@ public class UserServiceImpl implements UserService {
 	public UserServiceModel findUserById(String id) {
 		return this.userRepository.findById(id).map(r -> modelMapper.map(r, UserServiceModel.class))
 				.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+	}
+
+	@Override
+	public UserServiceModel editUserProfileRoles(UserServiceModel userServiceModel) {
+		User user = this.userRepository.findByUsername(userServiceModel.getUsername())
+				.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+		if (!user.getPassword().equals(userServiceModel.getPassword())) {
+			throw new IllegalArgumentException("incorrect password");
+		}
+		user.setAuthorities(userServiceModel
+				.getAuthorities()
+				.stream().map(r -> this.modelMapper
+						.map(r, Role.class))
+				.collect(Collectors.toSet()));
+		return this.modelMapper.map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
 	}
 
 }

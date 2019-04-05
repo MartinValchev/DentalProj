@@ -122,7 +122,7 @@ public class UserController extends BaseController{
 		RoleServiceModel roleServiceModel =this.roleService.findByAuthority(authority);
 		
 		userServiceModel.getAuthorities().add(roleServiceModel);
-		this.userService.editUserProfile(userServiceModel, userServiceModel.getPassword());
+		this.userService.editUserProfileRoles(userServiceModel);
 		List<UserAllViewModel> profiles=  this.userService
 				.findAllUsers()
 				.stream()
