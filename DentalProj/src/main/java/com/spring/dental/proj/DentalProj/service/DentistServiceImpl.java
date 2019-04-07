@@ -50,4 +50,10 @@ public class DentistServiceImpl implements DentistService {
 		return modelMapper.map(dentistsSavedEntity, DentistServiceModel.class);
 	}
 
+	@Override
+	public DentistServiceModel removeDentist(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

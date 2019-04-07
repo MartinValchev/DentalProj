@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,7 +27,9 @@ import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
 
 
 @Controller
-public class DentistController {
+@RequestMapping("/dentist")
+@PreAuthorize("isAuthenticated()")
+public class DentistController extends BaseController{
 
 	@Autowired
 	DentistService dentistService;
@@ -36,7 +40,7 @@ public class DentistController {
 	@Autowired
 	ModelMapper modelMapper;
 	
-	@GetMapping("/dentistLsit")
+	@GetMapping("/all")
 	public ModelAndView getDentistList(ModelAndView modelAndView) {
 		List<DentistServiceModel> dentsitList = dentistService.getAllDentists();
 		modelAndView.addObject("dentistList", dentsitList);
@@ -44,7 +48,7 @@ public class DentistController {
 		return modelAndView;
 	}
 	
-	@GetMapping("/dentist/{id}")
+	@GetMapping("/get/{id}")
 	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") Long id) {
 	/*	DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
 		modelAndView.addObject("dentist", dentistServiceModel);
@@ -52,12 +56,12 @@ public class DentistController {
 		return modelAndView;
 	}
 	
-	@PostMapping("/dentist/add")
-	public String addDentist(@Valid @ModelAttribute DentistBindingModel dentistBindingModel, BindingResult bindingResult, Model model,@RequestParam("dentistImage") MultipartFile dentistImage) {
+	@PostMapping("/add")
+	public ModelAndView addDentist(@Valid @ModelAttribute DentistBindingModel dentistBindingModel, BindingResult bindingResult, Model model,@RequestParam("dentistImage") MultipartFile dentistImage) {
 		  if(bindingResult.hasErrors()){
 
 	            model.addAttribute("dentistBindingModel",dentistBindingModel);
-	            return "addDentist";
+	            return super.view("addDentist");
 	        }else{
 	        	if(!dentistImage.isEmpty()) {
 	        		String dentistImageName = dentistBindingModel.getFirstName() + "_" + dentistBindingModel.getMiddleName()  + "_" +  dentistBindingModel.getLastName();
@@ -66,13 +70,13 @@ public class DentistController {
 	        	}
 	        	DentistServiceModel dentistServiceModel =  modelMapper.map(dentistBindingModel, DentistServiceModel.class);
 	            DentistServiceModel savedDentist = dentistService.addDentist(dentistServiceModel);
-	            return "redirect:/dentist/" +  savedDentist.getId();
+	            return super.view("redirect:/dentist/" +  savedDentist.getId());
 	        }
 	}
-		@GetMapping("/addDentist")
-		public String getAddDentistPage(DentistBindingModel dentistBindingModel, Model model) {
+		@GetMapping("/add")
+		public ModelAndView getAddDentistPage(DentistBindingModel dentistBindingModel, Model model) {
 			
-			return "addDentist";
+			return super.view("addDentist");
 		}
 	
 	}

@@ -14,4 +14,9 @@ public interface DentistRepository extends JpaRepository<Dentist, String>{
 	Optional<Dentist> findById(String id);
 	
 	List<Dentist> findAll();
+	
+	// add new dentist
+	// remove dentist
+	// find by id
+	// find all
 }
