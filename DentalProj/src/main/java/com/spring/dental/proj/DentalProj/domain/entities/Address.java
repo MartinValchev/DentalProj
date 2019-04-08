@@ -6,6 +6,8 @@ import javax.validation.constraints.Size;
 
 @Embeddable
 public class Address {
+	
+	public Address() {}
 
 	public Address(@NotNull @Size(max = 50) String country, @NotNull @Size(max = 50) String city,
 			@NotNull @Size(max = 6) String postCode, @NotNull @Size(max = 100) String addressLine1,

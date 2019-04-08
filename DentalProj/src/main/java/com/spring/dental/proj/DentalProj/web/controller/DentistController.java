@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.dental.proj.DentalProj.domain.entities.Address;
 import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.DentistBindingModel;
 import com.spring.dental.proj.DentalProj.service.DentistService;
@@ -69,8 +70,15 @@ public class DentistController extends BaseController{
 	        		dentistBindingModel.setDentistImagePath(fullDentistImagePath);
 	        	}
 	        	DentistServiceModel dentistServiceModel =  modelMapper.map(dentistBindingModel, DentistServiceModel.class);
-	            DentistServiceModel savedDentist = dentistService.addDentist(dentistServiceModel);
-	            return super.view("redirect:/dentist/" +  savedDentist.getId());
+	            Address  address = new Address();
+	            address.setAddressLine1(dentistBindingModel.getAddressLine1());
+	            address.setAddressLine2(dentistBindingModel.getAddressLine2());
+	            address.setCity(dentistBindingModel.getCity());
+	            address.setCountry(dentistBindingModel.getCountry());
+	            address.setPostCode(dentistBindingModel.getPostCode());
+	            dentistServiceModel.setAddress(address);
+	        	DentistServiceModel savedDentist = dentistService.addDentist(dentistServiceModel);
+	        	return super.redirect("/dentist/" +  savedDentist.getId());
 	        }
 	}
 		@GetMapping("/add")
