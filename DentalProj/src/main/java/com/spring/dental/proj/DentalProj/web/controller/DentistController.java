@@ -22,25 +22,25 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.dental.proj.DentalProj.domain.entities.Address;
 import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.DentistBindingModel;
+import com.spring.dental.proj.DentalProj.domain.models.service.view.DentistViewModel;
 import com.spring.dental.proj.DentalProj.service.DentistService;
 import com.spring.dental.proj.DentalProj.utils.CommonService;
 import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
 
-
 @Controller
 @RequestMapping("/dentist")
 @PreAuthorize("isAuthenticated()")
-public class DentistController extends BaseController{
+public class DentistController extends BaseController {
 
 	@Autowired
 	DentistService dentistService;
-	
+
 	@Autowired
 	CommonService commonService;
-	
+
 	@Autowired
 	ModelMapper modelMapper;
-	
+
 	@GetMapping("/all")
 	public ModelAndView getDentistList(ModelAndView modelAndView) {
 		List<DentistServiceModel> dentsitList = dentistService.getAllDentists();
@@ -48,43 +48,54 @@ public class DentistController extends BaseController{
 		modelAndView.setViewName("dentistList");
 		return modelAndView;
 	}
-	
-	@GetMapping("/get/{id}")
-	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") Long id) {
-	/*	DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
-		modelAndView.addObject("dentist", dentistServiceModel);
-		modelAndView.setViewName("dentist");*/
-		return modelAndView;
-	}
-	
-	@PostMapping("/add")
-	public ModelAndView addDentist(@Valid @ModelAttribute DentistBindingModel dentistBindingModel, BindingResult bindingResult, Model model,@RequestParam("dentistImage") MultipartFile dentistImage) {
-		  if(bindingResult.hasErrors()){
 
-	            model.addAttribute("dentistBindingModel",dentistBindingModel);
-	            return super.view("addDentist");
-	        }else{
-	        	if(!dentistImage.isEmpty()) {
-	        		String dentistImageName = dentistBindingModel.getFirstName() + "_" + dentistBindingModel.getMiddleName()  + "_" +  dentistBindingModel.getLastName();
-	        		String fullDentistImagePath = commonService.processModelImage(ProjectConstants.DENTIST_MODEL, dentistImageName, dentistImage);
-	        		dentistBindingModel.setDentistImagePath(fullDentistImagePath);
-	        	}
-	        	DentistServiceModel dentistServiceModel =  modelMapper.map(dentistBindingModel, DentistServiceModel.class);
-	            Address  address = new Address();
-	            address.setAddressLine1(dentistBindingModel.getAddressLine1());
-	            address.setAddressLine2(dentistBindingModel.getAddressLine2());
-	            address.setCity(dentistBindingModel.getCity());
-	            address.setCountry(dentistBindingModel.getCountry());
-	            address.setPostCode(dentistBindingModel.getPostCode());
-	            dentistServiceModel.setAddress(address);
-	        	DentistServiceModel savedDentist = dentistService.addDentist(dentistServiceModel);
-	        	return super.redirect("/dentist/" +  savedDentist.getId());
-	        }
+	@GetMapping("/get/{id}")
+	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") String id) {
+		DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
+		DentistViewModel dentistViewModel = this.modelMapper.map(dentistServiceModel, DentistViewModel.class);
+		Address address = dentistServiceModel.getAddress();
+		dentistViewModel.setAddressLine1(address.getAddressLine1());
+		dentistViewModel.setAddressLine2(address.getAddressLine2());
+		dentistViewModel.setCity(address.getCity());
+		dentistViewModel.setCountry(address.getCountry());
+		dentistViewModel.setPostCode(address.getPostCode());
+		modelAndView.addObject("dentist", dentistViewModel);
+		modelAndView.setViewName("dentist");
+		return super.view("dentist", modelAndView);
 	}
-		@GetMapping("/add")
-		public ModelAndView getAddDentistPage(DentistBindingModel dentistBindingModel, Model model) {
-			
+
+	@PostMapping("/add")
+	public ModelAndView addDentist(@Valid @ModelAttribute DentistBindingModel dentistBindingModel,
+			BindingResult bindingResult, Model model, @RequestParam("dentistImage") MultipartFile dentistImage) {
+		if (bindingResult.hasErrors()) {
+
+			model.addAttribute("dentistBindingModel", dentistBindingModel);
 			return super.view("addDentist");
+		} else {
+			if (!dentistImage.isEmpty()) {
+				String dentistImageName = dentistBindingModel.getFirstName() + "_" + dentistBindingModel.getMiddleName()
+						+ "_" + dentistBindingModel.getLastName();
+				String fullDentistImagePath = commonService.processModelImage(ProjectConstants.DENTIST_MODEL,
+						dentistImageName, dentistImage);
+				dentistBindingModel.setDentistImagePath(fullDentistImagePath);
+			}
+			DentistServiceModel dentistServiceModel = modelMapper.map(dentistBindingModel, DentistServiceModel.class);
+			Address address = new Address();
+			address.setAddressLine1(dentistBindingModel.getAddressLine1());
+			address.setAddressLine2(dentistBindingModel.getAddressLine2());
+			address.setCity(dentistBindingModel.getCity());
+			address.setCountry(dentistBindingModel.getCountry());
+			address.setPostCode(dentistBindingModel.getPostCode());
+			dentistServiceModel.setAddress(address);
+			DentistServiceModel savedDentist = dentistService.addDentist(dentistServiceModel);
+			return super.redirect("/dentist/get/" + savedDentist.getId());
 		}
-	
 	}
+
+	@GetMapping("/add")
+	public ModelAndView getAddDentistPage(DentistBindingModel dentistBindingModel, Model model) {
+
+		return super.view("addDentist");
+	}
+
+}
