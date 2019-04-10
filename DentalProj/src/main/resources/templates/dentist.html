@@ -12,7 +12,7 @@
 		 <fieldset style="border:1px solid gray; padding:8px; border-radius:5px">
   		<legend>Personal Info:</legend>    
 	          <div class="form-group row">  
-	            <label for="dentistImage" class="col-sm-2 col-form-label"><img  alt="dentist image" id="previewImage" th:src="${dentistImagePath}" height="100" width="100"></label>
+	            <label for="dentistImage" class="col-sm-2 col-form-label"><img  alt="dentist image" id="previewImage" th:src="${dentist.dentistImagePath}" height="100" width="100"></label>
 	        </div>
 	        <div class="form-group row">
 	            <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
@@ -91,5 +91,8 @@
 	    </fieldset> 
 	    <br/>   
 	</main>
+	<footer>
+		<th:block th:include="~{fragments/footer}"></th:block>
+	</footer>
 </body>
 </html>
