@@ -53,6 +53,10 @@ public class DentistController extends BaseController {
 	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") String id) {
 		DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
 		DentistViewModel dentistViewModel = this.modelMapper.map(dentistServiceModel, DentistViewModel.class);
+		String imagePath = dentistViewModel.getDentistImagePath();
+		String imageName = imagePath.substring(imagePath.lastIndexOf('\\')+1);
+		String relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
+		dentistViewModel.setDentistImagePath(relativeImagePath);
 		Address address = dentistServiceModel.getAddress();
 		dentistViewModel.setAddressLine1(address.getAddressLine1());
 		dentistViewModel.setAddressLine2(address.getAddressLine2());

@@ -1,6 +1,5 @@
 package com.spring.dental.proj.DentalProj.utils;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
