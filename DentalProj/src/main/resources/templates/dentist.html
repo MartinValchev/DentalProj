@@ -12,41 +12,36 @@
 		 <fieldset style="border:1px solid gray; padding:8px; border-radius:5px">
   		<legend>Personal Info:</legend>    
 	          <div class="form-group row">  
-	            <label for="dentistImage" class="col-sm-2 col-form-label"><img  alt="dentist image" id="previewImage" th:src="${dentistImagePath}" height="100" width="100"></label>
+	            <label for="dentistImage" class="col-sm-2 col-form-label"><img  alt="dentist image" id="previewImage" th:src="${dentist.dentistImagePath}" height="100" width="100"></label>
 	        </div>
 	        <div class="form-group row">
-	            <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+	            <span class="col-sm-2 col-form-label">First Name</span>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control form-control-danger" id="firstName"
-	                       placeholder="first name" th:value="${dentist.firstName}"/>
+	             <h5 class="text-left text-muted" id="firstName" th:text="${dentist.firstName}"/>
 	            </div>
 	        </div>
 	        <div class="form-group row">
-	            <label for="middleName" class="col-sm-2 col-form-label">Middle Name</label>
+	            <span class="col-sm-2 col-form-label">Middle Name</span>
 	            <div class="col-sm-10">
-	                <input type="text" name="middleName" placeholder="middle name" class="form-control form-control-danger" id="middleName"
-	                       th:value="${dentist.middleName}"/>
+	             <h5 class="text-left text-muted" id="middleName" th:text="${dentist.middleName}"/>
 	            </div>
 	        </div>
 	        <div class="form-group row">
-	            <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+	            <span class="col-sm-2 col-form-label">Last Name</span>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control form-control" id="lastName"
-	                       placeholder="last name" th:value="${dentist.lastName}"/>
+	             <h5 class="text-left text-muted" id="lastName" th:text="${dentist.lastName}"/>
 	            </div>
 	        </div>
-	        <div class="form-group row">
-	            <label for="email" class="col-sm-2 col-form-label">Email</label>
+	         <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Email</span>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control" id="email"
-	                       placeholder="email" th:field="${dentist.email}"/>
+	             <h5 class="text-left text-muted" id="email" th:text="${dentist.email}"/>
 	            </div>
 	        </div>
-	   		<div class="form-group row">
-	            <label for="telephone" class="col-sm-2 col-form-label">Telephone</label>
+	   		 <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Telephone</span>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control" id="telephone"
-	                       placeholder="telephone" th:field="${dentist.telephone}"/>
+	             <h5 class="text-left text-muted" id="telephone" th:text="${dentist.telephone}"/>
 	            </div>
 	        </div>
         </fieldset>
@@ -54,38 +49,33 @@
         <fieldset style="border:1px solid gray; padding:8px;  border-radius:5px">
   		<legend>Address Info:</legend>
 	        <div class="form-group row">
-	            <label for="country" class="col-sm-2 col-form-label">Country</label>
+	            <span class="col-sm-2 col-form-label">Country</span>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control" id="country"
-	                       placeholder="country" th:field="${dentist.country}"/>
+	             <h5 class="text-left text-muted" id="country" th:text="${dentist.country}"/>
+	            </div>
+	        </div>
+	         <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">City</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="city" th:text="${dentist.city}"/>
 	            </div>
 	        </div>
 	        <div class="form-group row">
-	            <label for="city" class="col-sm-2 col-form-label">City</label>
+	            <span class="col-sm-2 col-form-label">Post Code</span>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control" id="city"
-	                       placeholder="city" th:field="${dentist.city}"/>
-	            </div>
-	        </div>
-	        <div class="form-group row">
-	            <label for="postCode" class="col-sm-2 col-form-label">Post code</label>
-	            <div class="col-sm-10">
-	                <input type="text" class="form-control" id="postCode"
-	                       placeholder="postCode" th:field="${dentist.postCode}"/>
+	             <h5 class="text-left text-muted" id="postCode" th:text="${dentist.postCode}"/>
 	            </div>
 	        </div>
 			<div class="form-group row">
-	            <label for="addressLine1" class="col-sm-2 col-form-label">Address 1</label>
+	            <span class="col-sm-2 col-form-label">Address 1</span>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control" id="addressLine1"
-	                       placeholder="addressLine1" th:field="${dentist.addressLine1}"/>
+	             <h5 class="text-left text-muted" id="cityAddressLine1" th:text="${dentist.addressLine1}"/>
 	            </div>
 	        </div>
-	        	<div class="form-group row">
-	            <label for="addressLine2" class="col-sm-2 col-form-label">Address 2</label>
+	        <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Address 2</span>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control" id="addressLine2"
-	                       placeholder="addressLine2" th:field="${dentist.addressLine2}"/>
+	             <h5 class="text-left text-muted" id="cityAddressLine2" th:text="${dentist.addressLine2}"/>
 	            </div>
 	        </div>
 	    </fieldset> 
