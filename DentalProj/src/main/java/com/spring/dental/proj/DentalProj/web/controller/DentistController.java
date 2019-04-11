@@ -1,6 +1,7 @@
 package com.spring.dental.proj.DentalProj.web.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.dental.proj.DentalProj.domain.entities.Address;
 import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.DentistBindingModel;
+import com.spring.dental.proj.DentalProj.domain.models.service.view.AllDentistsViewModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.DentistViewModel;
 import com.spring.dental.proj.DentalProj.service.DentistService;
 import com.spring.dental.proj.DentalProj.utils.CommonService;
@@ -41,18 +43,14 @@ public class DentistController extends BaseController {
 	@Autowired
 	ModelMapper modelMapper;
 
-	@GetMapping("/all")
-	public ModelAndView getDentistList(ModelAndView modelAndView) {
-		List<DentistServiceModel> dentsitList = dentistService.getAllDentists();
-		modelAndView.addObject("dentistList", dentsitList);
-		modelAndView.setViewName("dentistList");
-		return modelAndView;
-	}
-
 	@GetMapping("/get/{id}")
 	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") String id) {
 		DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
 		DentistViewModel dentistViewModel = this.modelMapper.map(dentistServiceModel, DentistViewModel.class);
+		String imagePath = dentistViewModel.getDentistImagePath();
+		String imageName = imagePath.substring(imagePath.lastIndexOf('\\')+1);
+		String relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
+		dentistViewModel.setDentistImagePath(relativeImagePath);
 		Address address = dentistServiceModel.getAddress();
 		dentistViewModel.setAddressLine1(address.getAddressLine1());
 		dentistViewModel.setAddressLine2(address.getAddressLine2());
@@ -96,6 +94,25 @@ public class DentistController extends BaseController {
 	public ModelAndView getAddDentistPage(DentistBindingModel dentistBindingModel, Model model) {
 
 		return super.view("addDentist");
+	}
+	
+	@GetMapping("/all")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ModelAndView getAllDentistsPage(ModelAndView modelAndView) {			
+		List<AllDentistsViewModel> dentists = this.dentistService.getAllDentists()
+				.stream()
+				.map(r -> {
+		    AllDentistsViewModel model = this.modelMapper.map(r, AllDentistsViewModel.class);
+		    if(null != model.getDentistImagePath()) {
+				String imagePath = model.getDentistImagePath();
+				String imageName = imagePath.substring(imagePath.lastIndexOf('\\')+1);
+				String relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
+				model.setDentistImagePath(relativeImagePath);
+		    }
+			return model;	})
+				.collect(Collectors.toList());
+		modelAndView.addObject("dentists", dentists);
+		return super.view("dentistList", modelAndView);
 	}
 
 }

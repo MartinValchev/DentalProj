@@ -1,6 +1,7 @@
 package com.spring.dental.proj.DentalProj.domain.models.service.view;
 
 public class UserProfileViewModel {
+	
 	private String username;
 	private String email;
 
