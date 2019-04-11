@@ -34,5 +34,11 @@ public class CommonService {
 		
 		return fullImagePath;
 	}
+	
+	public String generateRelativeDentistImagePath(String fullPath) {
+		String imageName = fullPath.substring(fullPath.lastIndexOf('\\')+1);
+		String relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
+		return relativeImagePath;
+	}
 
 }

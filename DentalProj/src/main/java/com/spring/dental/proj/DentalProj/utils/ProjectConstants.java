@@ -2,7 +2,8 @@ package com.spring.dental.proj.DentalProj.utils;
 
 public class ProjectConstants {
 	// image paths
-	public static final String DENTIST_IMAGES_PATH = "C:\\Projects\\DentalProj\\dentist\\images\\";
+	//public static final String DENTIST_IMAGES_PATH = "C:\\Projects\\DentalProj\\dentist\\images\\";
+	public static final String DENTIST_IMAGES_PATH = "E:\\Projects2\\DentalProj\\dentist\\images\\";
 	
 	public static final String DENTIST_IMAGES_MAPPED_PATH = "/dentist/images/";
 	

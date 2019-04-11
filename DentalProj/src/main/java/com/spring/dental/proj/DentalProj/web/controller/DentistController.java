@@ -47,9 +47,7 @@ public class DentistController extends BaseController {
 	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") String id) {
 		DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
 		DentistViewModel dentistViewModel = this.modelMapper.map(dentistServiceModel, DentistViewModel.class);
-		String imagePath = dentistViewModel.getDentistImagePath();
-		String imageName = imagePath.substring(imagePath.lastIndexOf('\\')+1);
-		String relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
+		String relativeImagePath = commonService.generateRelativeDentistImagePath(dentistViewModel.getDentistImagePath());
 		dentistViewModel.setDentistImagePath(relativeImagePath);
 		Address address = dentistServiceModel.getAddress();
 		dentistViewModel.setAddressLine1(address.getAddressLine1());
@@ -63,6 +61,7 @@ public class DentistController extends BaseController {
 	}
 
 	@PostMapping("/add")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ModelAndView addDentist(@Valid @ModelAttribute DentistBindingModel dentistBindingModel,
 			BindingResult bindingResult, Model model, @RequestParam("dentistImage") MultipartFile dentistImage) {
 		if (bindingResult.hasErrors()) {
@@ -114,5 +113,23 @@ public class DentistController extends BaseController {
 		modelAndView.addObject("dentists", dentists);
 		return super.view("dentistList", modelAndView);
 	}
-
+	@GetMapping("/edit/{id}")
+	public ModelAndView getEditPage(@PathVariable("id")String id,DentistBindingModel dentistBindingModel, ModelAndView modelAndView) {
+		DentistServiceModel model = this.dentistService.getDentistById(id);
+		if(model !=null) {
+		dentistBindingModel = modelMapper.map(model, DentistBindingModel.class);
+		dentistBindingModel.setAddressLine1(model.getAddress().getAddressLine1());
+		dentistBindingModel.setAddressLine2(model.getAddress().getAddressLine2());
+		dentistBindingModel.setCity(model.getAddress().getCity());
+		dentistBindingModel.setCountry(model.getAddress().getCountry());
+		dentistBindingModel.setPostCode(model.getAddress().getPostCode());
+		String relativeImagePath = commonService.generateRelativeDentistImagePath(dentistBindingModel.getDentistImagePath());
+		dentistBindingModel.setDentistImagePath(relativeImagePath);
+		modelAndView.addObject("dentistBindingModel", dentistBindingModel);
+		return super.view("editDentist",modelAndView);
+		}else {
+			return super.view("");
+		}
+	
+	}
 }
