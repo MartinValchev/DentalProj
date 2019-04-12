@@ -7,6 +7,8 @@ public class ProjectConstants {
 	
 	public static final String DENTIST_IMAGES_MAPPED_PATH = "/dentist/images/";
 	
+	public static final String PATIENT_IMAGES_MAPPED_PATH = "/patient/images/";
+	
 	public static final String PATIENT_IMAGES_PATH = "E:\\Projects2\\DentalProj\\patient\\images\\";
 	
 	// regex expressions

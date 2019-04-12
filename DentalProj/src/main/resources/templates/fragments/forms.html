@@ -110,6 +110,7 @@
           <br/>
       <fieldset style="border:1px solid gray; padding:8px; border-radius:5px">
   		<legend>Personal Info:</legend>    
+  		<input type="hidden" id="id" th:field="*{id}"/> 
 	       <div class="form-group row">  
 	            <label for="dentistImage" class="col-sm-2 col-form-label"><img th:src="*{dentistImagePath}" alt="dentist image" id="previewImage" height="100" width="100"></label>
 	            <div class="col-sm-10">					         	

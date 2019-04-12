@@ -6,19 +6,21 @@ import java.io.IOException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.dental.proj.DentalProj.domain.models.binding.DentistBindingModel;
+
 @Component
 public class CommonService {
 
-	public String processModelImage(String modelType,String imageName,MultipartFile file){
-		String currentFileName =file.getResource().getFilename();
-		String extension =currentFileName.substring(currentFileName.lastIndexOf(".")+1);
-		String fullImagePath ="";
-		switch(modelType) {
-		case ProjectConstants.DENTIST_MODEL: 
-			fullImagePath = ProjectConstants.DENTIST_IMAGES_PATH +  imageName +"." + extension;
+	public String processModelImage(String modelType, String imageName, MultipartFile file) {
+		String currentFileName = file.getResource().getFilename();
+		String extension = currentFileName.substring(currentFileName.lastIndexOf(".") + 1);
+		String fullImagePath = "";
+		switch (modelType) {
+		case ProjectConstants.DENTIST_MODEL:
+			fullImagePath = ProjectConstants.DENTIST_IMAGES_PATH + imageName + "." + extension;
 			break;
-		case 	ProjectConstants.PATIENT_MODEL:
-			fullImagePath = ProjectConstants.PATIENT_IMAGES_PATH +  imageName +"." + extension;
+		case ProjectConstants.PATIENT_MODEL:
+			fullImagePath = ProjectConstants.PATIENT_IMAGES_PATH + imageName + "." + extension;
 			break;
 		}
 		FileOutputStream out;
@@ -30,15 +32,36 @@ public class CommonService {
 			e.printStackTrace();
 			return null;
 		}
-		
-		
+
 		return fullImagePath;
 	}
-	
-	public String generateRelativeDentistImagePath(String fullPath) {
-		String imageName = fullPath.substring(fullPath.lastIndexOf('\\')+1);
-		String relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
+
+	public String generateRelativeImagePath(String fullPath, String modelType) {
+		String imageName = fullPath.substring(fullPath.lastIndexOf('\\') + 1);
+		String relativeImagePath = "";
+		switch (modelType) {
+		case ProjectConstants.DENTIST_MODEL:
+			relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
+			break;
+		case ProjectConstants.PATIENT_MODEL:
+			relativeImagePath = ProjectConstants.PATIENT_IMAGES_MAPPED_PATH + imageName;
+			break;
+		}
 		return relativeImagePath;
 	}
+
+	public DentistBindingModel updateDentistsImagePath(DentistBindingModel dentistBindingModel,
+			MultipartFile dentistImage) {
+		if (!dentistImage.isEmpty()) {
+			String dentistImageName = dentistBindingModel.getFirstName() + "_" + dentistBindingModel.getMiddleName()
+					+ "_" + dentistBindingModel.getLastName();
+			String fullDentistImagePath = processModelImage(ProjectConstants.DENTIST_MODEL, dentistImageName,
+					dentistImage);
+			dentistBindingModel.setDentistImagePath(fullDentistImagePath);
+
+		}
+		return dentistBindingModel;
+	}
+
 
 }
