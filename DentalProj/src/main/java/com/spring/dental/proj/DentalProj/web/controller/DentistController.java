@@ -47,8 +47,6 @@ public class DentistController extends BaseController {
 	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") String id) {
 		DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
 		DentistViewModel dentistViewModel = this.modelMapper.map(dentistServiceModel, DentistViewModel.class);
-		String relativeImagePath = commonService.generateRelativeImagePath(dentistViewModel.getDentistImagePath(),ProjectConstants.DENTIST_MODEL);
-		dentistViewModel.setDentistImagePath(relativeImagePath);
 		Address address = dentistServiceModel.getAddress();
 		dentistViewModel.setAddressLine1(address.getAddressLine1());
 		dentistViewModel.setAddressLine2(address.getAddressLine2());
@@ -69,8 +67,12 @@ public class DentistController extends BaseController {
 			model.addAttribute("dentistBindingModel", dentistBindingModel);
 			return super.view("addDentist");
 		} else {
-			commonService.updateDentistsImagePath(dentistBindingModel, dentistImage);
+			String dentistImageName = dentistBindingModel.getFirstName() + "_" +
+			dentistBindingModel.getMiddleName() + "_" +dentistBindingModel.getLastName();
+			String fullImagePath  = commonService.storeModelImage(ProjectConstants.DENTIST_MODEL, dentistImageName, dentistImage);
+			String relativeImagePath = commonService.generateRelativeImagePath(fullImagePath, ProjectConstants.DENTIST_MODEL);
 			DentistServiceModel dentistServiceModel = modelMapper.map(dentistBindingModel, DentistServiceModel.class);
+			dentistServiceModel.setDentistImagePath(relativeImagePath);
 			Address address = new Address();
 			address.setAddressLine1(dentistBindingModel.getAddressLine1());
 			address.setAddressLine2(dentistBindingModel.getAddressLine2());
@@ -96,16 +98,10 @@ public class DentistController extends BaseController {
 				.stream()
 				.map(r -> {
 		    AllDentistsViewModel model = this.modelMapper.map(r, AllDentistsViewModel.class);
-		    if(null != model.getDentistImagePath()) {
-				String imagePath = model.getDentistImagePath();
-				String imageName = imagePath.substring(imagePath.lastIndexOf('\\')+1);
-				String relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
-				model.setDentistImagePath(relativeImagePath);
-		    }
 			return model;	})
 				.collect(Collectors.toList());
 		modelAndView.addObject("dentists", dentists);
-		return super.view("dentistList", modelAndView);
+		return super.view("allDentists", modelAndView);
 	}
 	@GetMapping("/edit/{id}")
 	public ModelAndView getEditPage(@PathVariable("id")String id,DentistBindingModel dentistBindingModel, ModelAndView modelAndView) {
@@ -117,8 +113,6 @@ public class DentistController extends BaseController {
 		dentistBindingModel.setCity(model.getAddress().getCity());
 		dentistBindingModel.setCountry(model.getAddress().getCountry());
 		dentistBindingModel.setPostCode(model.getAddress().getPostCode());
-		String relativeImagePath = commonService.generateRelativeImagePath(dentistBindingModel.getDentistImagePath(),ProjectConstants.DENTIST_MODEL);
-		dentistBindingModel.setDentistImagePath(relativeImagePath);
 		modelAndView.addObject("dentistBindingModel", dentistBindingModel);
 		return super.view("editDentist",modelAndView);
 		}else {
@@ -134,8 +128,14 @@ public class DentistController extends BaseController {
 			model.addAttribute("dentistBindingModel", dentistBindingModel);
 			return super.view("editDentist");
 		} else {
-			dentistBindingModel = commonService.updateDentistsImagePath(dentistBindingModel, dentistImage);
+			String dentistImageName = dentistBindingModel.getFirstName() + "_" +
+					dentistBindingModel.getMiddleName() + "_" +dentistBindingModel.getLastName();
 			DentistServiceModel dentistServiceModel = modelMapper.map(dentistBindingModel, DentistServiceModel.class);
+			if(!dentistImage.isEmpty() ) {
+				String fullImagePath =commonService.storeModelImage(ProjectConstants.DENTIST_MODEL, dentistImageName, dentistImage);
+				String relativeImagePath = commonService.generateRelativeImagePath(fullImagePath, ProjectConstants.DENTIST_MODEL);
+				dentistServiceModel.setDentistImagePath(relativeImagePath);
+			}
 			Address address = new Address();
 			address.setAddressLine1(dentistBindingModel.getAddressLine1());
 			address.setAddressLine2(dentistBindingModel.getAddressLine2());
@@ -148,4 +148,30 @@ public class DentistController extends BaseController {
 		}
 	}
 	
+	@GetMapping("/delete/{id}")
+	public ModelAndView getDeletePage(@PathVariable("id")String id,DentistBindingModel dentistBindingModel, ModelAndView modelAndView) {
+		DentistServiceModel model = this.dentistService.getDentistById(id);
+		if(model !=null) {
+		dentistBindingModel = modelMapper.map(model, DentistBindingModel.class);
+		dentistBindingModel.setAddressLine1(model.getAddress().getAddressLine1());
+		dentistBindingModel.setAddressLine2(model.getAddress().getAddressLine2());
+		dentistBindingModel.setCity(model.getAddress().getCity());
+		dentistBindingModel.setCountry(model.getAddress().getCountry());
+		dentistBindingModel.setPostCode(model.getAddress().getPostCode());
+		modelAndView.addObject("dentistBindingModel", dentistBindingModel);
+		return super.view("deleteDentist",modelAndView);
+		}else {
+			return super.view("");
+		}
+	}
+	
+	@PostMapping("/delete")
+	public ModelAndView deleteDentsit(@Valid @ModelAttribute DentistBindingModel dentistBindingModel,
+			 Model model) {
+			
+			//commonService.removeImage(dentistBindingModel.getDentistImagePath());
+			DentistServiceModel dentistServiceModel = modelMapper.map(dentistBindingModel, DentistServiceModel.class);
+			dentistService.removeDentist(dentistServiceModel);
+			return super.redirect("/dentist/all");
+	}
 }

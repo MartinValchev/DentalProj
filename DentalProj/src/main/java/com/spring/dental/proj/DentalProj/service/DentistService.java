@@ -9,6 +9,6 @@ public interface DentistService {
 	DentistServiceModel getDentistById(String id);
 	DentistServiceModel addDentist(DentistServiceModel dentist);
 	DentistServiceModel editDentist(DentistServiceModel dentist);
-	DentistServiceModel removeDentist(String id);
+	void removeDentist(DentistServiceModel dentist);
 	
 }

@@ -1,0 +1,23 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+<th:block th:include="~{fragments/head}"></th:block>
+<title>Delete dentist</title>
+</head>
+<body>
+		<header>
+			<th:block th:include="~{fragments/navbar}"></th:block>
+		</header>
+		<main class="mt-3">
+	<br />
+	<div class="container">
+		<h1 class="text-center text-dark">Delete dentist</h1>
+		<hr class="hr-2 bg-dark w-25">
+		<form  th:replace="fragments/forms::deleteDentistForm"></form>
+	</div>
+	</main>
+	<footer>
+			<th:block th:include="~{fragments/footer}"></th:block>
+		</footer>
+</body>
+</html>

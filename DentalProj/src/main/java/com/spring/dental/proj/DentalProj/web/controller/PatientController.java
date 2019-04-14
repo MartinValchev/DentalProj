@@ -69,8 +69,9 @@ public class PatientController {
 	        }else{
 	        	if(!patientImage.isEmpty()) {
 	        		String patientImageName = patientBindingModel.getFirstName() + "_" + patientBindingModel.getMiddleName()  + "_" +  patientBindingModel.getLastName();
-	        		String fullPatientImagePath = commonService.processModelImage(ProjectConstants.PATIENT_MODEL,patientImageName, patientImage);
-	        		patientBindingModel.setPatientImagePath(fullPatientImagePath);
+	        		String fullPatientImagePath = commonService.storeModelImage(ProjectConstants.PATIENT_MODEL,patientImageName, patientImage);
+	        		String relativePatientImagePath = commonService.generateRelativeImagePath(fullPatientImagePath, ProjectConstants.PATIENT_MODEL);
+	        		patientBindingModel.setPatientImagePath(relativePatientImagePath);
 	        	}
 	        	PatientServiceModel patientServiceModel =  modelMapper.map(patientBindingModel, PatientServiceModel.class);
 	        	PatientServiceModel savedPatient = patientService.addNewPatient(patientServiceModel);
@@ -87,8 +88,9 @@ public class PatientController {
 	        }else{
 	        	if(!patientImage.isEmpty()) {
 	        		String patientImageName = patientBindingModel.getFirstName() + "_" + patientBindingModel.getMiddleName()  + "_" +  patientBindingModel.getLastName();
-	        		String fullPatientImagePath = commonService.processModelImage(ProjectConstants.PATIENT_MODEL,patientImageName, patientImage);
-	        		patientBindingModel.setPatientImagePath(fullPatientImagePath);
+	        		String fullPatientImagePath = commonService.storeModelImage(ProjectConstants.PATIENT_MODEL,patientImageName, patientImage);
+	        		String relativeImagePath = commonService.generateRelativeImagePath(fullPatientImagePath, ProjectConstants.PATIENT_MODEL);
+	        		patientBindingModel.setPatientImagePath(relativeImagePath);
 	        	}
 	        	PatientServiceModel patientServiceModel =  modelMapper.map(patientBindingModel, PatientServiceModel.class);
 	        	PatientServiceModel savedPatient = patientService.addNewPatient(patientServiceModel);

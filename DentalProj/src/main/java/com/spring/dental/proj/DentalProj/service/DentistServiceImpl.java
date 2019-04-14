@@ -24,7 +24,7 @@ public class DentistServiceImpl implements DentistService {
 
 	@Override
 	public List<DentistServiceModel> getAllDentists() {
-		List<Dentist> dentistList = dentistRepository.findAll();
+		List<Dentist> dentistList = dentistRepository.findAllDentists();
 		return dentistList.stream().map((s) -> modelMapper.map(s, DentistServiceModel.class))
 				.collect(Collectors.toList());
 	}
@@ -51,9 +51,16 @@ public class DentistServiceImpl implements DentistService {
 	}
 
 	@Override
-	public DentistServiceModel removeDentist(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void removeDentist(DentistServiceModel dentist) {
+		if(dentist !=null && dentist.getId() !=null) {
+			Dentist persistedDentist = this.dentistRepository
+					.findById(dentist.getId())
+					.orElseThrow(()-> new NotFoundException());
+			persistedDentist.setIsDeleted(true);
+			this.dentistRepository.save(persistedDentist);
+		}else {
+			throw new NullPointerException();
+		}
 	}
 
 }

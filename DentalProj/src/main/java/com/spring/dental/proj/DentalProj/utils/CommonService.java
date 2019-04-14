@@ -1,23 +1,23 @@
 package com.spring.dental.proj.DentalProj.utils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.spring.dental.proj.DentalProj.domain.models.binding.DentistBindingModel;
 
 @Component
 public class CommonService {
 
-	public String processModelImage(String modelType, String imageName, MultipartFile file) {
+	public String storeModelImage(String modelType, String imageName, MultipartFile file) {
 		String currentFileName = file.getResource().getFilename();
 		String extension = currentFileName.substring(currentFileName.lastIndexOf(".") + 1);
 		String fullImagePath = "";
+		String imageNameAndExtension = "";
 		switch (modelType) {
 		case ProjectConstants.DENTIST_MODEL:
-			fullImagePath = ProjectConstants.DENTIST_IMAGES_PATH + imageName + "." + extension;
+			imageNameAndExtension = imageName + "." + extension;
+			fullImagePath = ProjectConstants.DENTIST_IMAGES_PATH + imageNameAndExtension;
 			break;
 		case ProjectConstants.PATIENT_MODEL:
 			fullImagePath = ProjectConstants.PATIENT_IMAGES_PATH + imageName + "." + extension;
@@ -33,7 +33,7 @@ public class CommonService {
 			return null;
 		}
 
-		return fullImagePath;
+		return imageNameAndExtension;
 	}
 
 	public String generateRelativeImagePath(String fullPath, String modelType) {
@@ -50,18 +50,9 @@ public class CommonService {
 		return relativeImagePath;
 	}
 
-	public DentistBindingModel updateDentistsImagePath(DentistBindingModel dentistBindingModel,
-			MultipartFile dentistImage) {
-		if (!dentistImage.isEmpty()) {
-			String dentistImageName = dentistBindingModel.getFirstName() + "_" + dentistBindingModel.getMiddleName()
-					+ "_" + dentistBindingModel.getLastName();
-			String fullDentistImagePath = processModelImage(ProjectConstants.DENTIST_MODEL, dentistImageName,
-					dentistImage);
-			dentistBindingModel.setDentistImagePath(fullDentistImagePath);
-
-		}
-		return dentistBindingModel;
+	public void removeImage(String fullImagePath) {
+		File file = new File(fullImagePath);
+		file.delete();
 	}
-
 
 }
