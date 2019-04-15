@@ -1,0 +1,42 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+<th:block th:include="~{fragments/head}"></th:block>
+<title>Edit patient</title>
+</head>
+<body>
+		<header>
+			<th:block th:include="~{fragments/navbar}"></th:block>
+		</header>
+		<main class="mt-3">
+	<br />
+	<div class="container">
+		<h1 class="text-center text-dark">Edit patient</h1>
+		<hr class="hr-2 bg-dark w-25">
+		<form  th:replace="fragments/forms::editPatientForm"></form>
+	</div>
+	</main>
+	<script>
+	function updatePatientImage(input) {
+
+	  if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+		  $('#previewImage').attr('src', e.target.result);
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	  }
+	}
+
+	$("#patientImage").change(function() {
+		updatePatientImage(this);
+	});
+</script>	
+
+	<footer>
+			<th:block th:include="~{fragments/footer}"></th:block>
+		</footer>
+</body>
+</html>

@@ -1,16 +1,16 @@
 package com.spring.dental.proj.DentalProj.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.spring.dental.proj.DentalProj.domain.entities.Patient;
 import com.spring.dental.proj.DentalProj.domain.models.PatientServiceModel;
 import com.spring.dental.proj.DentalProj.domain.repository.PatientRepository;
+
+import javassist.NotFoundException;
 
 @Service
 public class PatientServiceImpl implements PatientService {
@@ -23,30 +23,47 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public List<PatientServiceModel> getAllPatients() {
-		List<Patient> patientList = patientRepository.findAll();
-		return patientList.isEmpty() ? new ArrayList<PatientServiceModel>()
-				: patientList.stream().map(s -> modelMapper.map(s, PatientServiceModel.class))
-						.collect(Collectors.toList());
+		return patientRepository
+				.findAllPatients()
+				.stream()
+				.map((s) -> { return modelMapper.map(s, PatientServiceModel.class);})
+				.collect(Collectors.toList());
+				
+				
 	}
 
 	@Override
-	public PatientServiceModel getPatientById(Long id) {
-		Patient patient = patientRepository.getOne(id);
-		return patient !=null? modelMapper.map(patient, PatientServiceModel.class):null;
+	public PatientServiceModel getPatientById(String id) throws NotFoundException {
+		return patientRepository
+				.findById(id)
+				.map(r->{return this.modelMapper.map(r, PatientServiceModel.class);})
+				.orElseThrow(()-> new NotFoundException("Patient not found!"));
 	}
 
 	@Override
-	public PatientServiceModel addNewPatient(PatientServiceModel patient) {
+	public PatientServiceModel addPatient(PatientServiceModel patient) {
 		Patient mappedPatient = modelMapper.map(patient, Patient.class);
 		Patient persistedPatient = patientRepository.save(mappedPatient);
 		return modelMapper.map(persistedPatient, PatientServiceModel.class);
 	}
 
 	@Override
-	public PatientServiceModel updatePatient(PatientServiceModel patient) {
+	public PatientServiceModel editPatient(PatientServiceModel patient) {
 		Patient patientEntity= modelMapper.map(patient, Patient.class);
 		Patient updatedPatient = patientRepository.save(patientEntity);
 		return modelMapper.map(updatedPatient, PatientServiceModel.class);
+	}
+
+	@Override
+	public void removePatient(PatientServiceModel patient) throws NotFoundException {
+		if(patient !=null && patient.getId() !=null) {
+			Patient persistedPatient = this.patientRepository
+					.findById(patient.getId()).get();
+			persistedPatient.setIsDeleted(true);
+			this.patientRepository.save(persistedPatient);
+		}else {
+			throw new NullPointerException();
+		}
 	}
 
 }

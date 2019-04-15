@@ -1,0 +1,88 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+<th:block th:include="~{fragments/head}"></th:block>
+<title>patient</title>
+</head>
+<body>
+	<header>
+			<th:block th:include="~{fragments/navbar}"></th:block>
+	</header>
+	<main class="mt-4">
+		 <fieldset style="border:1px solid gray; padding:8px; border-radius:5px">
+  		<legend>Personal Info:</legend>    
+	          <div class="form-group row">  
+	            <label for="patientImage" class="col-sm-2 col-form-label"><img  alt="patient image" id="previewImage" th:src="${patient.patientImagePath}" height="100" width="100"></label>
+	        </div>
+	        <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">First Name</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="firstName" th:text="${patient.firstName}"/>
+	            </div>
+	        </div>
+	        <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Middle Name</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="middleName" th:text="${patient.middleName}"/>
+	            </div>
+	        </div>
+	        <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Last Name</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="lastName" th:text="${patient.lastName}"/>
+	            </div>
+	        </div>
+	         <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Email</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="email" th:text="${patient.email}"/>
+	            </div>
+	        </div>
+	   		 <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Telephone</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="telephone" th:text="${patient.telephone}"/>
+	            </div>
+	        </div>
+        </fieldset>
+          <br/>  
+        <fieldset style="border:1px solid gray; padding:8px;  border-radius:5px">
+  		<legend>Address Info:</legend>
+	        <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Country</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="country" th:text="${patient.country}"/>
+	            </div>
+	        </div>
+	         <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">City</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="city" th:text="${patient.city}"/>
+	            </div>
+	        </div>
+	        <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Post Code</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="postCode" th:text="${patient.postCode}"/>
+	            </div>
+	        </div>
+			<div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Address 1</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="cityAddressLine1" th:text="${patient.addressLine1}"/>
+	            </div>
+	        </div>
+	        <div class="form-group row">
+	            <span class="col-sm-2 col-form-label">Address 2</span>
+	            <div class="col-sm-10">
+	             <h5 class="text-left text-muted" id="cityAddressLine2" th:text="${patient.addressLine2}"/>
+	            </div>
+	        </div>
+	    </fieldset> 
+	    <br/>   
+	</main>
+	<footer>
+		<th:block th:include="~{fragments/footer}"></th:block>
+	</footer>
+</body>
+</html>
