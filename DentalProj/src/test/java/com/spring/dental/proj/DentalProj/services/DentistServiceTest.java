@@ -23,6 +23,8 @@ import com.spring.dental.proj.DentalProj.domain.repository.DentistRepository;
 import com.spring.dental.proj.DentalProj.service.DentistService;
 import com.spring.dental.proj.DentalProj.testUtils.TestUtils;
 
+import javassist.NotFoundException;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DentistServiceTest {
@@ -37,7 +39,7 @@ public class DentistServiceTest {
 	ModelMapper modelMapper;
 
 	@Test
-	public void whenGetAllDentist_return3Entities() {
+	public void whenGetAllDentist_return3Entities() throws NotFoundException {
 		List<Dentist> dentistList = TestUtils.getTestDentistList();
 		when(dentistRepository.findAll()).thenReturn(dentistList);
 		List<DentistServiceModel> dentistModelList = dentistService.getAllDentists();
@@ -50,7 +52,7 @@ public class DentistServiceTest {
 	}
 
 	@Test
-	public void whenRetrieveAllDentistFromEmptyDatabase_returnEmptyList() {
+	public void whenRetrieveAllDentistFromEmptyDatabase_returnEmptyList() throws NotFoundException {
 		List<Dentist> dentistList = new ArrayList<>();
 		Mockito.when(dentistRepository.findAll()).thenReturn(dentistList);
 		List<DentistServiceModel> dentistModelList = dentistService.getAllDentists();

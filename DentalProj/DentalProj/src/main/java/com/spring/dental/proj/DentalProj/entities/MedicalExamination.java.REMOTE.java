@@ -1,6 +1,5 @@
 package com.spring.dental.proj.DentalProj.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,15 +16,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "medical_examination")
-public class MedicalExamination implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4409758989152454460L;
+public class MedicalExamination {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private String title;
@@ -45,10 +39,7 @@ public class MedicalExamination implements Serializable{
 	private Date endDate;
 
 	@OneToMany(mappedBy = "medicalExamination")
-<<<<<<< HEAD:DentalProj/DentalProj/src/main/java/com/spring/dental/proj/DentalProj/entities/MedicalExamination.java
-=======
 
->>>>>>> master:DentalProj/src/main/java/com/spring/dental/proj/DentalProj/entities/MedicalExamination.java
 	private List<ExaminationImage> examinationImages;
 	
 	private String notes;

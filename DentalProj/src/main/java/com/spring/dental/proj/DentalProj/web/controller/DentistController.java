@@ -29,6 +29,8 @@ import com.spring.dental.proj.DentalProj.service.DentistService;
 import com.spring.dental.proj.DentalProj.utils.CommonService;
 import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
 
+import javassist.NotFoundException;
+
 @Controller
 @RequestMapping("/dentist")
 @PreAuthorize("isAuthenticated()")
@@ -94,12 +96,17 @@ public class DentistController extends BaseController {
 	@GetMapping("/all")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ModelAndView getAllDentistsPage(ModelAndView modelAndView) {			
-		List<AllDentistsViewModel> dentists = this.dentistService.getAllDentists()
-				.stream()
-				.map(r -> {
-		    AllDentistsViewModel model = this.modelMapper.map(r, AllDentistsViewModel.class);
-			return model;	})
-				.collect(Collectors.toList());
+		List<AllDentistsViewModel> dentists =null;
+		try {
+			dentists = this.dentistService.getAllDentists()
+					.stream()
+					.map(r -> {
+			    AllDentistsViewModel model = this.modelMapper.map(r, AllDentistsViewModel.class);
+				return model;	})
+					.collect(Collectors.toList());
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+		}
 		modelAndView.addObject("dentists", dentists);
 		return super.view("allDentists", modelAndView);
 	}
@@ -169,9 +176,12 @@ public class DentistController extends BaseController {
 	public ModelAndView deleteDentsit(@Valid @ModelAttribute DentistBindingModel dentistBindingModel,
 			 Model model) {
 			
-			//commonService.removeImage(dentistBindingModel.getDentistImagePath());
 			DentistServiceModel dentistServiceModel = modelMapper.map(dentistBindingModel, DentistServiceModel.class);
-			dentistService.removeDentist(dentistServiceModel);
+			try {
+				dentistService.removeDentist(dentistServiceModel);
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+			}
 			return super.redirect("/dentist/all");
 	}
 }

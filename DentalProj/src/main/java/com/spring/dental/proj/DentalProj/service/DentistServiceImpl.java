@@ -3,8 +3,6 @@ package com.spring.dental.proj.DentalProj.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.ws.rs.NotFoundException;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.spring.dental.proj.DentalProj.domain.entities.Dentist;
 import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.repository.DentistRepository;
+
+
 
 @Service
 public class DentistServiceImpl implements DentistService {
@@ -31,7 +31,7 @@ public class DentistServiceImpl implements DentistService {
 
 	@Override
 	public DentistServiceModel getDentistById(String id) {
-		Dentist dentist = dentistRepository.findById(id).orElseThrow(() -> new NotFoundException());
+		Dentist dentist = dentistRepository.findById(id).get();
 		return modelMapper.map(dentist, DentistServiceModel.class);
 
 	}
@@ -54,8 +54,7 @@ public class DentistServiceImpl implements DentistService {
 	public void removeDentist(DentistServiceModel dentist) {
 		if(dentist !=null && dentist.getId() !=null) {
 			Dentist persistedDentist = this.dentistRepository
-					.findById(dentist.getId())
-					.orElseThrow(()-> new NotFoundException());
+					.findById(dentist.getId()).get();
 			persistedDentist.setIsDeleted(true);
 			this.dentistRepository.save(persistedDentist);
 		}else {

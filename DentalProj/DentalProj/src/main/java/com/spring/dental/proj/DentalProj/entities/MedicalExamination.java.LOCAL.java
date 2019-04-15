@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "medical_examination")
 public class MedicalExamination implements Serializable{
@@ -45,10 +44,6 @@ public class MedicalExamination implements Serializable{
 	private Date endDate;
 
 	@OneToMany(mappedBy = "medicalExamination")
-<<<<<<< HEAD:DentalProj/DentalProj/src/main/java/com/spring/dental/proj/DentalProj/entities/MedicalExamination.java
-=======
-
->>>>>>> master:DentalProj/src/main/java/com/spring/dental/proj/DentalProj/entities/MedicalExamination.java
 	private List<ExaminationImage> examinationImages;
 	
 	private String notes;
@@ -58,12 +53,10 @@ public class MedicalExamination implements Serializable{
 	}
 
 	public void setId(long id) {
-
 		this.id = id;
 	}
 
 	public String getTitle() {
-		
 		return title;
 	}
 

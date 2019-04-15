@@ -1,6 +1,5 @@
 package com.spring.dental.proj.DentalProj.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,18 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "medical_examination")
-public class MedicalExamination implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4409758989152454460L;
+public class MedicalExamination {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private String title;
@@ -45,11 +38,7 @@ public class MedicalExamination implements Serializable{
 	private Date endDate;
 
 	@OneToMany(mappedBy = "medicalExamination")
-<<<<<<< HEAD:DentalProj/DentalProj/src/main/java/com/spring/dental/proj/DentalProj/entities/MedicalExamination.java
-=======
-
->>>>>>> master:DentalProj/src/main/java/com/spring/dental/proj/DentalProj/entities/MedicalExamination.java
-	private List<ExaminationImage> examinationImages;
+	private List<ExaminationImages> examinationImages;
 	
 	private String notes;
 
@@ -58,12 +47,10 @@ public class MedicalExamination implements Serializable{
 	}
 
 	public void setId(long id) {
-
 		this.id = id;
 	}
 
 	public String getTitle() {
-		
 		return title;
 	}
 
@@ -87,11 +74,11 @@ public class MedicalExamination implements Serializable{
 		this.endDate = endDate;
 	}
 
-	public List<ExaminationImage> getExaminationImages() {
+	public List<ExaminationImages> getExaminationImages() {
 		return examinationImages;
 	}
 
-	public void setExaminationImages(List<ExaminationImage> examinationImages) {
+	public void setExaminationImages(List<ExaminationImages> examinationImages) {
 		this.examinationImages = examinationImages;
 	}
 
@@ -109,14 +96,6 @@ public class MedicalExamination implements Serializable{
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
-	}
-
-	public Dentist getDentist() {
-		return dentist;
-	}
-
-	public void setDentist(Dentist dentist) {
-		this.dentist = dentist;
 	}
 
 }
