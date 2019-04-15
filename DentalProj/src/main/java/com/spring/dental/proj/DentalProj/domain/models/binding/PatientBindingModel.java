@@ -11,7 +11,10 @@ import com.spring.dental.proj.DentalProj.utils.Messages;
 import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
 
 public class PatientBindingModel {
-	private Long id;
+	
+	PatientBindingModel(){}
+	
+	private String id;
 
 	 @NotBlank(message="Invalid name")
 	    @Size(min=2, max=40,message = Messages.FIRST_NAME_VALIDATION_MESSAGE)
@@ -56,11 +59,11 @@ public class PatientBindingModel {
 	
 	private String addressLine2;
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -159,5 +162,4 @@ public class PatientBindingModel {
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
-	
 }

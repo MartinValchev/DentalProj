@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.dental.proj.DentalProj.domain.entities.Address;
+import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.PatientServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.PatientBindingModel;
+import com.spring.dental.proj.DentalProj.domain.models.service.view.DentistViewModel;
 import com.spring.dental.proj.DentalProj.service.PatientService;
 import com.spring.dental.proj.DentalProj.utils.CommonService;
 import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
@@ -51,6 +54,22 @@ public class PatientController {
 		modelAndView.setViewName("patientList");
 		return modelAndView;
 	}
+	
+	/*@GetMapping("/get/{id}")
+	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") String id) {
+		DentistServiceModel dentistServiceModel = dentistService.getDentistById(id);
+		DentistViewModel dentistViewModel = this.modelMapper.map(dentistServiceModel, DentistViewModel.class);
+		Address address = dentistServiceModel.getAddress();
+		dentistViewModel.setAddressLine1(address.getAddressLine1());
+		dentistViewModel.setAddressLine2(address.getAddressLine2());
+		dentistViewModel.setCity(address.getCity());
+		dentistViewModel.setCountry(address.getCountry());
+		dentistViewModel.setPostCode(address.getPostCode());
+		modelAndView.addObject("dentist", dentistViewModel);
+		modelAndView.setViewName("dentist");
+		return super.view("dentist", modelAndView);
+	}*/
+
 	
 	@GetMapping("/patient/{id}")
 	public ModelAndView getPatientById(@PathVariable("id") Long id,ModelAndView modelAndView) {

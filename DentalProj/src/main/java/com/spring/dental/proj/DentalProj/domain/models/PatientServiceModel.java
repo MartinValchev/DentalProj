@@ -4,19 +4,21 @@ import com.spring.dental.proj.DentalProj.domain.entities.Address;
 
 public class PatientServiceModel extends BaseServiceModel {
 	
+	public PatientServiceModel() {}
+	
 	private String firstName;
 	
 	private String middleName;
 	
 	private String lastName;
-	
+
 	private String telephone;
 	
 	private String email;
+
+	private String patientImagePath;
 	
 	private Address address;
-	
-	private String imagePath;
 
 	public String getFirstName() {
 		return firstName;
@@ -48,17 +50,18 @@ public class PatientServiceModel extends BaseServiceModel {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public String getImagePath() {
-		return imagePath;
-	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
+
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPatientImagePath() {
+		return patientImagePath;
+	}
+	public void setPatientImagePath(String patientImagePath) {
+		this.patientImagePath = patientImagePath;
 	}
 	
 	
