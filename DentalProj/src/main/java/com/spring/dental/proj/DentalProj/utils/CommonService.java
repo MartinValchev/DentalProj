@@ -33,7 +33,7 @@ public class CommonService {
 			return null;
 		}
 
-		return imageNameAndExtension;
+		return fullImagePath;
 	}
 
 	public String generateRelativeImagePath(String fullPath, String modelType) {

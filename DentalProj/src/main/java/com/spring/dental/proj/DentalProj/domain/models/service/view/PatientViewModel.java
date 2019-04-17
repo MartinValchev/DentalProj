@@ -15,7 +15,7 @@ public class PatientViewModel {
 	private String email;
 	
 	private String telephone;
-	
+
 	private String patientImagePath;
 	
 	private MultipartFile patientImage;	

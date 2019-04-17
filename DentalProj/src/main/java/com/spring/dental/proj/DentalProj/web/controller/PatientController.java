@@ -2,7 +2,9 @@ package com.spring.dental.proj.DentalProj.web.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.spring.dental.proj.DentalProj.domain.entities.Address;
 import com.spring.dental.proj.DentalProj.domain.models.PatientServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.PatientBindingModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.AllPatientsViewModel;
-import com.spring.dental.proj.DentalProj.domain.models.service.view.DentistViewModel;
+import com.spring.dental.proj.DentalProj.domain.models.service.view.PatientViewModel;
 import com.spring.dental.proj.DentalProj.service.PatientService;
 import com.spring.dental.proj.DentalProj.utils.CommonService;
 import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
@@ -57,25 +60,25 @@ public class PatientController extends BaseController {
 	}
 
 	@GetMapping("/get/{id}")
-	public ModelAndView getDentistById(ModelAndView modelAndView, @PathVariable("id") String id) throws NotFoundException {
-		PatientServiceModel dentistServiceModel = patientService.getPatientById(id);
-		DentistViewModel dentistViewModel = this.modelMapper.map(dentistServiceModel, DentistViewModel.class);
-		Address address = dentistServiceModel.getAddress();
-		dentistViewModel.setAddressLine1(address.getAddressLine1());
-		dentistViewModel.setAddressLine2(address.getAddressLine2());
-		dentistViewModel.setCity(address.getCity());
-		dentistViewModel.setCountry(address.getCountry());
-		dentistViewModel.setPostCode(address.getPostCode());
-		modelAndView.addObject("dentist", dentistViewModel);
-		modelAndView.setViewName("dentist");
-		return super.view("dentist", modelAndView);
+	public ModelAndView getPatientById(ModelAndView modelAndView, @PathVariable("id") String id) throws NotFoundException {
+		PatientServiceModel patientServiceModel = patientService.getPatientById(id);
+		PatientViewModel patientViewModel = this.modelMapper.map(patientServiceModel, PatientViewModel.class);
+		Address address = patientServiceModel.getAddress();
+		patientViewModel.setAddressLine1(address.getAddressLine1());
+		patientViewModel.setAddressLine2(address.getAddressLine2());
+		patientViewModel.setCity(address.getCity());
+		patientViewModel.setCountry(address.getCountry());
+		patientViewModel.setPostCode(address.getPostCode());
+		modelAndView.addObject("patient", patientViewModel);
+		modelAndView.setViewName("patient");
+		return super.view("patient", modelAndView);
 	}
 	
 	@PostMapping("/add")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ModelAndView addPatient(@Valid @ModelAttribute PatientBindingModel patientBindingModel, BindingResult bindingResult, Model model,@RequestParam("patientImage") MultipartFile patientImage) {
 		if (bindingResult.hasErrors()) {
-
+			patientBindingModel.setPatientImage(patientImage);
 			model.addAttribute("patientBindingModel", patientBindingModel);
 			return super.view("addPatient");
 		} else {
@@ -98,17 +101,26 @@ public class PatientController extends BaseController {
 	}
 	
 	@GetMapping("/add")
-	public ModelAndView getAddDentistPage(PatientBindingModel patientBindingModel, Model model) {
+	public ModelAndView getAddPatientPage(PatientBindingModel patientBindingModel, Model model) {
 		return super.view("addPatient");
 	}
 	
 	@PostMapping("/edit")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public String editPatient(@Valid @ModelAttribute PatientBindingModel patientBindingModel, BindingResult bindingResult, Model model,@RequestParam("patientImage") MultipartFile patientImage) {
+	public ModelAndView editPatient(@Valid @ModelAttribute PatientBindingModel patientBindingModel, BindingResult bindingResult, ModelAndView modelAndView,@RequestParam("patientImage") MultipartFile patientImage) throws NotFoundException {
 		  if(bindingResult.hasErrors()){
-
-	            model.addAttribute("patientBindingModel",patientBindingModel);
-	            return "editPatient";
+		  PatientServiceModel model = this.patientService.getPatientById(patientBindingModel.getId());
+				if(model !=null) {
+					patientBindingModel = modelMapper.map(model, PatientBindingModel.class);
+					patientBindingModel.setAddressLine1(model.getAddress().getAddressLine1());
+					patientBindingModel.setAddressLine2(model.getAddress().getAddressLine2());
+					patientBindingModel.setCity(model.getAddress().getCity());
+					patientBindingModel.setCountry(model.getAddress().getCountry());
+					patientBindingModel.setPostCode(model.getAddress().getPostCode());
+					patientBindingModel.setPatientImagePath(model.getPatientImagePath());
+				}
+				modelAndView.addObject("patientBindingModel", patientBindingModel);
+	            return super.view("editPatient", modelAndView);
 	        }else{
 	        	if(!patientImage.isEmpty()) {
 	        		String patientImageName = patientBindingModel.getFirstName() + "_" + patientBindingModel.getMiddleName()  + "_" +  patientBindingModel.getLastName();
@@ -118,7 +130,7 @@ public class PatientController extends BaseController {
 	        	}
 	        	PatientServiceModel patientServiceModel =  modelMapper.map(patientBindingModel, PatientServiceModel.class);
 	        	PatientServiceModel savedPatient = patientService.addPatient(patientServiceModel);
-	            return "redirect:/patient/" +  savedPatient.getId();
+	            return super.redirect("/patient/get/" +  savedPatient.getId());
 	        }
 	}
 	

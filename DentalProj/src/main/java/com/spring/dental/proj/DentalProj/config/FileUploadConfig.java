@@ -17,5 +17,11 @@ public class FileUploadConfig implements WebMvcConfigurer{
 	               .setCachePeriod(3600)
 	               .resourceChain(true)
 	               .addResolver(new PathResourceResolver());
+	      registry
+	      .addResourceHandler("/patient/images/**")
+	      .addResourceLocations("file:" + ProjectConstants.PATIENT_IMAGES_PATH)
+	      .setCachePeriod(3600)
+          .resourceChain(true)
+          .addResolver(new PathResourceResolver());
 	    }
 }
