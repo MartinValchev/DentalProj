@@ -11,6 +11,9 @@ import org.hibernate.annotations.GenericGenerator;
 public class BaseEntity {
 
     private String id;
+    
+    @Column(name = "is_deleted",updatable=true)
+	private boolean isDeleted;
 
     public BaseEntity() {
     }
@@ -26,5 +29,15 @@ public class BaseEntity {
     public void setId(String id) {
         this.id = id;
     }
+
+	public boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+    
+    
 	
 }

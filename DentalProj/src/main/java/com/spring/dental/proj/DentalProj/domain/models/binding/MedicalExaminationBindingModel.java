@@ -20,18 +20,30 @@ public class MedicalExaminationBindingModel {
 	@Size(min=2, max=100,message = Messages.TITLE_VALIDATION_MESSAGE)
 	private String title;
 	
+	@NotBlank(message="Invalid name")
+	@Size(min=2, max=40,message = Messages.FIRST_NAME_VALIDATION_MESSAGE)
 	private String dentistFirstName;
 	
+	@NotBlank(message="Invalid name")
+	@Size(min=2, max=40,message = Messages.MIDDLE_NAME_VALIDATION_MESSAGE)
 	private String dentistMiddleName;
 	
-	private String dentistFastName;	
+	@NotBlank(message="Invalid name")
+	@Size(min=2, max=40,message = Messages.LAST_NAME_VALIDATION_MESSAGE)
+	private String dentistLastName;	
 	
 	private String dentistImagePath;
 	
+    @NotBlank(message="Invalid name")
+	@Size(min=2, max=40,message = Messages.FIRST_NAME_VALIDATION_MESSAGE)
 	private String patientFirstName;
 
+	@NotBlank(message="Invalid name")
+	@Size(min=2, max=40,message = Messages.MIDDLE_NAME_VALIDATION_MESSAGE)
 	private String patientMiddleName;
 
+	@NotBlank(message="Invalid name")
+	@Size(min=2, max=40,message = Messages.LAST_NAME_VALIDATION_MESSAGE)
 	private String patientLastName;
 
 	private String patientImagePath;
@@ -42,6 +54,11 @@ public class MedicalExaminationBindingModel {
 
 	private List<ExaminationImageViewModel> examinationImages;
 	
+
+	@NotBlank(message="Invalid title")
+	@Size(min=2, max=100,message = Messages.TITLE_VALIDATION_MESSAGE)
 	private String notes;
+	
+	
 
 }

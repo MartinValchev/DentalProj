@@ -33,10 +33,6 @@ public class Dentist extends BaseEntity implements Serializable {
 	@Column(name = "dentist_image_path",length=200)
 	private String dentistImagePath;
 	
-	
-	@Column(name = "is_deleted",updatable=true)
-	private boolean isDeleted;
-	
 	@Embedded
 	private Address address;
 
@@ -96,15 +92,6 @@ public class Dentist extends BaseEntity implements Serializable {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
-	public boolean getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-	
 	
 
 }

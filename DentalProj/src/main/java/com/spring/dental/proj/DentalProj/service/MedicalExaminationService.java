@@ -2,8 +2,9 @@ package com.spring.dental.proj.DentalProj.service;
 
 import java.util.List;
 
-import com.spring.dental.proj.DentalProj.domain.entities.Dentist;
+import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.MedicalExaminationServiceModel;
+import com.spring.dental.proj.DentalProj.domain.models.PatientServiceModel;
 
 public interface MedicalExaminationService {
 	List<MedicalExaminationServiceModel> getAllMedicalExaminations();
@@ -12,5 +13,9 @@ public interface MedicalExaminationService {
 
 	MedicalExaminationServiceModel saveMedicalExamination(MedicalExaminationServiceModel mediicalExamination);
 
-	List<MedicalExaminationServiceModel> findMedicalExaminationsForDentist(Dentist dentist);
+	List<MedicalExaminationServiceModel> findMedicalExaminationsForDentist(DentistServiceModel dentist);
+	
+	List<MedicalExaminationServiceModel> findMedicalExaminationsForPatient(PatientServiceModel patient);
+	
+	void deleteMedicalExamination(MedicalExaminationServiceModel medicalExaminationServiceModel);
 }
