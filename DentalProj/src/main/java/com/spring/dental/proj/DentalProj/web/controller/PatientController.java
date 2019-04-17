@@ -129,6 +129,13 @@ public class PatientController extends BaseController {
 	        		patientBindingModel.setPatientImagePath(relativeImagePath);
 	        	}
 	        	PatientServiceModel patientServiceModel =  modelMapper.map(patientBindingModel, PatientServiceModel.class);
+	        	Address address = new Address();
+	        	address.setAddressLine1(patientBindingModel.getAddressLine1());
+	        	address.setAddressLine2(patientBindingModel.getAddressLine2());
+	        	address.setCity(patientBindingModel.getCity());
+	        	address.setCountry(patientBindingModel.getCountry());
+	        	address.setPostCode(patientBindingModel.getPostCode());
+	        	patientServiceModel.setAddress(address);
 	        	PatientServiceModel savedPatient = patientService.addPatient(patientServiceModel);
 	            return super.redirect("/patient/get/" +  savedPatient.getId());
 	        }
