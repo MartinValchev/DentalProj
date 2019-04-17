@@ -1,11 +1,9 @@
 package com.spring.dental.proj.DentalProj.domain.models.service.view;
 
-public class AllPatientsViewModel {
+public class AllPatientsViewModel  extends BaseViewModel {
 	
 	public AllPatientsViewModel() {
 	}
-
-	private String id;
 
 	private String firstName;
 
@@ -14,10 +12,6 @@ public class AllPatientsViewModel {
 	private String lastName;
 
 	private String patientImagePath;
-
-	public String getId() {
-		return id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -33,10 +27,6 @@ public class AllPatientsViewModel {
 
 	public String getPatientImagePath() {
 		return patientImagePath;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public void setFirstName(String firstName) {

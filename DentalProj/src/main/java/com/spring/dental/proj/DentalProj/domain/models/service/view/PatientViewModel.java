@@ -2,7 +2,7 @@ package com.spring.dental.proj.DentalProj.domain.models.service.view;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class PatientViewModel {
+public class PatientViewModel  extends BaseViewModel{
 	
 	public PatientViewModel() {}
 	

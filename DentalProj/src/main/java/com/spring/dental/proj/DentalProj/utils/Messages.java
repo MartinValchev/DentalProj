@@ -1,6 +1,7 @@
 package com.spring.dental.proj.DentalProj.utils;
 
 public class Messages {
+	public static final String TITLE_VALIDATION_MESSAGE = "title must be between 2 and 100 characters";
 	public static final String FIRST_NAME_VALIDATION_MESSAGE= "First Name must be between 2 and 40 characters";
 	public static final String MIDDLE_NAME_VALIDATION_MESSAGE="Middle Name must be between 2 and 40 characters";
 	public static final String LAST_NAME_VALIDATION_MESSAGE ="Last Name must be between 2 and 40 characters";
