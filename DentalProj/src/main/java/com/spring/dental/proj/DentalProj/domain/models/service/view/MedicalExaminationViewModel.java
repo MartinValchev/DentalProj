@@ -9,9 +9,9 @@ public class MedicalExaminationViewModel extends BaseViewModel{
 	
 	private String title;
 	
-	private AllDentistsViewModel dentist;
+	private DentistMedicalExaminationViewModel dentist;
 	
-	private AllPatientsViewModel patient;
+	private PatientMedicalExaminationViewModel patient;
 
 	private Date startDate;
 
@@ -23,14 +23,6 @@ public class MedicalExaminationViewModel extends BaseViewModel{
 
 	public String getTitle() {
 		return title;
-	}
-
-	public AllDentistsViewModel getDentist() {
-		return dentist;
-	}
-
-	public AllPatientsViewModel getPatient() {
-		return patient;
 	}
 
 	public Date getStartDate() {
@@ -53,14 +45,6 @@ public class MedicalExaminationViewModel extends BaseViewModel{
 		this.title = title;
 	}
 
-	public void setDentist(AllDentistsViewModel dentist) {
-		this.dentist = dentist;
-	}
-
-	public void setPatient(AllPatientsViewModel patient) {
-		this.patient = patient;
-	}
-
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
@@ -75,6 +59,22 @@ public class MedicalExaminationViewModel extends BaseViewModel{
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public DentistMedicalExaminationViewModel getDentist() {
+		return dentist;
+	}
+
+	public PatientMedicalExaminationViewModel getPatient() {
+		return patient;
+	}
+
+	public void setDentist(DentistMedicalExaminationViewModel dentist) {
+		this.dentist = dentist;
+	}
+
+	public void setPatient(PatientMedicalExaminationViewModel patient) {
+		this.patient = patient;
 	}
 	
 	

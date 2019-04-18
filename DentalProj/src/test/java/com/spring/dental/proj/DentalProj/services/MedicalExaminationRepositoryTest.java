@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.spring.dental.proj.DentalProj.domain.entities.Dentist;
 import com.spring.dental.proj.DentalProj.domain.entities.MedicalExamination;
+import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.MedicalExaminationServiceModel;
 import com.spring.dental.proj.DentalProj.domain.repository.MedicalExaminationRepository;
 import com.spring.dental.proj.DentalProj.service.MedicalExaminationService;
@@ -91,7 +92,7 @@ public class MedicalExaminationRepositoryTest {
 		List<MedicalExamination> expectedList = new ArrayList<>();
 		expectedList.add(expectedMedicalExamination);
 		Mockito.when(medicalExaminationRepository.getMedicalExaminationsByDentistId(Mockito.anyString())).thenReturn(expectedList);
-		List<MedicalExaminationServiceModel> actualServiceModelList =medicalExaminationService.findMedicalExaminationsForDentist(dentist);
+		List<MedicalExaminationServiceModel> actualServiceModelList =medicalExaminationService.findMedicalExaminationsForDentist(this.modelMapper.map(dentist, DentistServiceModel.class));
 		assertNotNull(actualServiceModelList);
 		assertEquals(medicalExaminationServiceModelList.size(),1);
 		assertNotNull(medicalExaminationServiceModelList.get(0));

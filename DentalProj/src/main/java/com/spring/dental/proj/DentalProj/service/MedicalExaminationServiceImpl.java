@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.spring.dental.proj.DentalProj.domain.entities.Dentist;
 import com.spring.dental.proj.DentalProj.domain.entities.MedicalExamination;
+import com.spring.dental.proj.DentalProj.domain.entities.Patient;
+import com.spring.dental.proj.DentalProj.domain.models.DentistServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.MedicalExaminationServiceModel;
+import com.spring.dental.proj.DentalProj.domain.models.PatientServiceModel;
 import com.spring.dental.proj.DentalProj.domain.repository.MedicalExaminationRepository;
 
 @Service
@@ -44,7 +47,8 @@ public class MedicalExaminationServiceImpl implements MedicalExaminationService 
 	}
 
 	@Override
-	public List<MedicalExaminationServiceModel> findMedicalExaminationsForDentist(Dentist dentist) {
+	public List<MedicalExaminationServiceModel> findMedicalExaminationsForDentist(DentistServiceModel dentistServiceModel) {
+		Dentist dentist = this.modelMapper.map(dentistServiceModel, Dentist.class);
 		List<MedicalExamination> medicalExaminationList = medicalExaminationRepository
 				.getMedicalExaminationsByDentistId(dentist.getId());
 		return (medicalExaminationList != null && medicalExaminationList.size() > 0) ? medicalExaminationList.stream()
@@ -52,5 +56,23 @@ public class MedicalExaminationServiceImpl implements MedicalExaminationService 
 				: null;
 		
 	}
+
+	@Override
+	public List<MedicalExaminationServiceModel> findMedicalExaminationsForPatient(PatientServiceModel patientServiceModel) {
+		Patient patient = this.modelMapper.map(patientServiceModel, Patient.class);
+		List<MedicalExamination> medicalExaminationList = medicalExaminationRepository
+				.getMedicalExaminationsByPatientId(patient.getId());
+		return (medicalExaminationList != null && medicalExaminationList.size() > 0) ? medicalExaminationList.stream()
+				.map(s -> modelMapper.map(s, MedicalExaminationServiceModel.class)).collect(Collectors.toList())
+				: null;
+	}
+
+	@Override
+	public MedicalExaminationServiceModel editMedicalExamination(MedicalExaminationServiceModel medicalExaminationServiceModel) {
+		MedicalExamination medicalExamination =  this.modelMapper.map(medicalExaminationServiceModel, MedicalExamination.class);
+		MedicalExamination persistedMedicalExamination = this.medicalExaminationRepository.save(medicalExamination);
+		return this.modelMapper.map(persistedMedicalExamination, MedicalExaminationServiceModel.class);
+	}
+
 
 }

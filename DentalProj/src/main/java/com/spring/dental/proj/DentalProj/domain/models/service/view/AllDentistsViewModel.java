@@ -8,7 +8,7 @@ public class AllDentistsViewModel extends BaseViewModel{
 	
 	private String middleName;
 	
-	private String lastName;	
+	private String lastName;
 	
 	private String dentistImagePath;
 

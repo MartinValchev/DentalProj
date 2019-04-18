@@ -1,0 +1,46 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+<th:block th:include="~{fragments/head}"></th:block>
+<title>Add new medical examination</title>
+</head>
+<body>
+		<header>
+			<th:block th:include="~{fragments/navbar}"></th:block>
+		</header>
+		<main class="mt-3">
+			<br />
+			<div class="container">
+				<h1 class="text-center text-dark">Add new medical examination</h1>
+				<hr class="hr-2 bg-dark w-25">
+				<form  th:replace="fragments/forms::addMedicalExaminationForm"></form>
+			</div>
+		</main>
+	<script>
+	function updateExaminationImages(input,placeToInsertImagePreview) {
+
+	  if (input.files && input.files[0]) {
+		var filesAmount = input.files.length;
+
+	       for (i = 0; i < filesAmount; i++) {  
+			var reader = new FileReader();
+	
+			reader.onload = function(event) {
+				$($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+			}
+	
+			reader.readAsDataURL(input.files[0]);
+		  }
+	  } 
+	}
+
+	$("#dentistImage").change(function() {
+		updateExaminationImages(this,'div.gallery');
+	});
+</script>	
+
+	<footer>
+			<th:block th:include="~{fragments/footer}"></th:block>
+		</footer>
+</body>
+</html>

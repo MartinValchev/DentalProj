@@ -7,6 +7,7 @@ import com.spring.dental.proj.DentalProj.domain.models.MedicalExaminationService
 import com.spring.dental.proj.DentalProj.domain.models.PatientServiceModel;
 
 public interface MedicalExaminationService {
+	
 	List<MedicalExaminationServiceModel> getAllMedicalExaminations();
 
 	MedicalExaminationServiceModel getMedicalExamination(String inputId);
@@ -16,6 +17,6 @@ public interface MedicalExaminationService {
 	List<MedicalExaminationServiceModel> findMedicalExaminationsForDentist(DentistServiceModel dentist);
 	
 	List<MedicalExaminationServiceModel> findMedicalExaminationsForPatient(PatientServiceModel patient);
-	
-	void deleteMedicalExamination(MedicalExaminationServiceModel medicalExaminationServiceModel);
+		
+	MedicalExaminationServiceModel editMedicalExamination(MedicalExaminationServiceModel medicalExamination);
 }

@@ -608,5 +608,103 @@
 	    <br/>   
         <input type="submit" class="btn btn-default" value="Submit"></input>  
     </form>
+    
+    <!-- Medical Examination AddMedicalExamination Form  -->
+    <form class="form w-20 mx-auto" th:object="${medicalExaminationBindingModel}" th:fragment="addMedicalExaminationForm"  enctype="multipart/form-data" method="post" th:action="@{/medicalexamination/add}">
+  		    <div class="form-group row" th:classappend="${#fields.hasErrors('title')} ? 'has-danger'">
+	            <label for="title" class="col-sm-2 col-form-label">Title</label>
+	            <div class="col-sm-10">
+	                <input type="text" class="form-control form-control-danger" id="title"
+	                       placeholder="title" th:field="*{title}"/>
+	                <div class="form-control-feedback small" th:each="error : ${#fields.errors('title')}" th:text=" ${error}">Sorry, that title is invalid</div>
+	            </div>
+	        </div>
+	       <div class="form-group row " th:classappend="${#fields.hasErrors('dentists')} ? 'has-danger'">
+	            <label th:for="dentists"> Dentist:</label>
+	            <select class="form-control"  th:field="*{dentist}">
+	                <option th:each="dentist:${dentistList}" th:value="${dentist.id}" th:text="${dentist.dentistFullName}"></option>
+	            </select>
+	            <div class="form-control-feedback small" th:each="error : ${#fields.errors('dentists')}" th:text="${error}">Error in dentist</div>
+        	</div>
+        	<div class="form-group row " th:classappend="${#fields.hasErrors('patients')} ? 'has-danger'">
+	            <label th:for="patients"> Patient:</label>
+	            <select class="form-control"  th:field="*{patient}">
+	                <option th:each="patient:${patientList}" th:value="${patient.id}" th:text="${patient.patientFullName}"></option>
+	            </select>
+	            <div class="form-control-feedback small" th:each="error : ${#fields.errors('patients')}" th:text="${error}">Error in patient</div>
+        	</div>
+        	<div class="form-group row" th:classappend="${#fields.hasErrors('startDate')} ? 'has-danger'">
+	            <label for="startDate" class="col-sm-2 col-form-label"> Start Date:</label>
+	            <input id ="startDate" type="date" class="form-control form-control-danger" th:field="*{startDate}">
+	            <div class="form-control-feedback" th:each="error : ${#fields.errors('startDate')}" th:text="${error}">Error in start date</div>
+             </div>
+             <div class="form-group row" th:classappend="${#fields.hasErrors('endDate')} ? 'has-danger'">
+	            <label for="endDate" class="col-sm-2 col-form-label"> End Date:</label>
+	            <input id ="endDate" type="date" class="form-control form-control-danger" th:field="*{endDate}">
+	            <div class="form-control-feedback" th:each="error : ${#fields.errors('endDate')}" th:text="${error}">Error in end date</div>
+             </div>
+        	  <br/>
+        	  <!-- Examination images -->
+        	<hr class="hr-2 bg-dark w-25">
+	        <div class="form-group row">  
+	            <label for="examinationImages" class="col-sm-2 col-form-label"><div class="gallery"></div></label>
+	            <div class="col-sm-10">					         	
+	                <input type="file" id="examinationImages" class="btn btn-default" accept="image/*" name="examinationImages"/>
+	            </div>
+	        </div>
+	        <hr class="hr-2 bg-dark w-25">
+
+	   		<div class="form-group row" th:classappend="${#fields.hasErrors('telephone')} ? 'has-danger'">
+	            <label for="telephone" class="col-sm-2 col-form-label">Telephone</label>
+	            <div class="col-sm-10">
+	                <input type="text" class="form-control form-control-danger" id="telephone"
+	                       placeholder="telephone" th:field="*{telephone}"/>
+	                <div class="form-control-feedback small" th:each="error : ${#fields.errors('telephone')}" th:text=" ${error}">Sorry, that telephone is invalid</div>
+	            </div>
+	        </div>
+          <br/>  
+	        <div class="form-group row" th:classappend="${#fields.hasErrors('country')} ? 'has-danger'">
+	            <label for="country" class="col-sm-2 col-form-label">Country</label>
+	            <div class="col-sm-10">
+	                <input type="text" class="form-control form-control-danger" id="country"
+	                       placeholder="country" th:field="*{country}"/>
+	                <div class="form-control-feedback small" th:each="error : ${#fields.errors('country')}" th:text=" ${error}">Sorry, that country is invalid</div>
+	            </div>
+	        </div>
+	        <div class="form-group row" th:classappend="${#fields.hasErrors('city')} ? 'has-danger'">
+	            <label for="city" class="col-sm-2 col-form-label">City</label>
+	            <div class="col-sm-10">
+	                <input type="text" class="form-control form-control-danger" id="city"
+	                       placeholder="city" th:field="*{city}"/>
+	                <div class="form-control-feedback small" th:each="error : ${#fields.errors('city')}" th:text=" ${error}">Sorry, that city is invalid</div>
+	            </div>
+	        </div>
+	        <div class="form-group row" th:classappend="${#fields.hasErrors('postCode')} ? 'has-danger'">
+	            <label for="postCode" class="col-sm-2 col-form-label">Post code</label>
+	            <div class="col-sm-10">
+	                <input type="text" class="form-control form-control-danger" id="postCode"
+	                       placeholder="postCode" th:field="*{postCode}"/>
+	                <div class="form-control-feedback small" th:each="error : ${#fields.errors('postCode')}" th:text=" ${error}">Sorry, that postCode is invalid</div>
+	            </div>
+	        </div>
+			<div class="form-group row" th:classappend="${#fields.hasErrors('addressLine1')} ? 'has-danger'">
+	            <label for="addressLine1" class="col-sm-2 col-form-label">Address 1</label>
+	            <div class="col-sm-10">
+	                <input type="text" class="form-control form-control-danger" id="addressLine1"
+	                       placeholder="addressLine1" th:field="*{addressLine1}"/>
+	                <div class="form-control-feedback small" th:each="error : ${#fields.errors('addressLine1')}" th:text=" ${error}">Sorry, that address is invalid</div>
+	            </div>
+	        </div>
+	        	<div class="form-group row" th:classappend="${#fields.hasErrors('addressLine2')} ? 'has-danger'">
+	            <label for="addressLine2" class="col-sm-2 col-form-label">Address 2</label>
+	            <div class="col-sm-10">
+	                <input type="text" class="form-control form-control-danger" id="addressLine2"
+	                       placeholder="addressLine2" th:field="*{addressLine2}"/>
+	                <div class="form-control-feedback small" th:each="error : ${#fields.errors('addressLine2')}" th:text=" ${error}">Sorry, that address is invalid</div>
+	            </div>
+	        </div>
+	    <br/>   
+        <input type="submit" class="btn btn-default" value="Submit"></input>  
+    </form>
 </body>
 </html>
