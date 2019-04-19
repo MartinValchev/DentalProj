@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,11 +79,24 @@ public class MedicalExaminationController extends BaseController{
 	}
 	
 	@PostMapping("/add")
-	public ModelAndView addMedicalExamination(@Valid @ModelAttribute MedicalExaminationBindingModel medicalExaminationBindingModel,BindingResult bindingResult, @RequestParam("examinationImages") List<MultipartFile> examinationImages, ModelAndView modelAndView) {
+	@PreAuthorize("hasRole('DENTIST')")
+	public ModelAndView addMedicalExamination(@Valid @ModelAttribute MedicalExaminationBindingModel medicalExaminationBindingModel,BindingResult bindingResult, @RequestParam("examinationImages") List<MultipartFile> examinationImages, ModelAndView modelAndView) {	
 		if (bindingResult.hasErrors()) {
+			if(medicalExaminationBindingModel.getStartDate().after(medicalExaminationBindingModel.getEndDate())) {
+				ObjectError error = new ObjectError("startDate","startDate must be after end date");
+				bindingResult.addError(error);
+				modelAndView.addObject("medicalExaminationBindingModel", medicalExaminationBindingModel);
+				return super.view("addMedicalExamination");
+			}
 			modelAndView.addObject("medicalExaminationBindingModel", medicalExaminationBindingModel);
 			return super.view("addMedicalExamination");
 		} else {
+			if(medicalExaminationBindingModel.getStartDate().after(medicalExaminationBindingModel.getEndDate())) {
+				ObjectError error = new ObjectError("startDate","startDate must be after end date");
+				bindingResult.addError(error);
+				modelAndView.addObject("medicalExaminationBindingModel", medicalExaminationBindingModel);
+				return super.view("addMedicalExamination");
+			}
 			List<ExaminationImageViewModel> imageList = new ArrayList<>();
 			if(examinationImages !=null && examinationImages.size()>0) {
 				MedicalExaminationViewModel medicalExmainationViewModel = this.modelMapper.map(medicalExaminationBindingModel, MedicalExaminationViewModel.class);
@@ -106,6 +120,7 @@ public class MedicalExaminationController extends BaseController{
 	}
 	
 	@GetMapping("/get/{id}")
+	@PreAuthorize("hasRole('DENTIST')")
 	public ModelAndView getMedicalExamination(@PathVariable("id") String id, ModelAndView modelAndView) {
 		MedicalExaminationServiceModel serviceModel = medicalExaminationService.getMedicalExamination(id);
 		MedicalExaminationViewModel viewModel = this.modelMapper.map(serviceModel, MedicalExaminationViewModel.class);

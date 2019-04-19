@@ -636,12 +636,12 @@
         	<div class="form-group row" th:classappend="${#fields.hasErrors('startDate')} ? 'has-danger'">
 	            <label for="startDate" class="col-sm-2 col-form-label"> Start Date:</label>
 	            <input id ="startDate" type="datetime-local" class="form-control form-control-danger" th:field="*{startDate}">
-	            <div class="form-control-feedback" th:each="error : ${#fields.errors('startDate')}" th:text="${error}">Error in start date</div>
+	            <div class="form-control-feedback small" th:each="error : ${#fields.errors('startDate')}" th:text="${error}"></div>
              </div>
              <div class="form-group row" th:classappend="${#fields.hasErrors('endDate')} ? 'has-danger'">
 	            <label for="endDate" class="col-sm-2 col-form-label"> End Date:</label>
 	            <input id ="endDate" type="datetime-local" class="form-control form-control-danger" th:field="*{endDate}">
-	            <div class="form-control-feedback" th:each="error : ${#fields.errors('endDate')}" th:text="${error}">Error in end date</div>
+	            <div class="form-control-feedback small" th:each="error : ${#fields.errors('endDate')}" th:text="${error}">Error in end date</div>
              </div>
         	  
         	  <!-- Examination images -->
@@ -651,7 +651,7 @@
 	        <div class="form-group row">  
 	            <label for="examinationImages" class="col-sm-2 col-form-label"><div class="gallery"></div></label>
 	            <div class="col-sm-10">					         	
-	                <input type="file" id="examinationImages" class="btn btn-default" accept="image/*" name="examinationImages" multiple/>
+	                <input type="file" id="examinationImages" class="btn btn-default" accept="image/*" name="examinationImages"/>
 	            </div>
 	        </div>
 	        <br/>
@@ -660,7 +660,7 @@
 	         <div class="form-group row" th:classappend="${#fields.hasErrors('notes')} ? 'has-danger'">
 	            <label for="notes" class="col-sm-2 col-form-label"> Notes:</label>
 	            <textarea name="notes" rows="6" class="form-control form-control-danger" th:field="*{notes}"> >Enter text here...</textarea>
-	            <div class="form-control-feedback" th:each="error : ${#fields.errors('endDate')}" th:text="${error}">Error in notes</div>
+	            <div class="form-control-feedback" th:each="error : ${#fields.errors('notes')}" th:text="${error}">Error in notes</div>
              </div>
 	        
           <br/>  

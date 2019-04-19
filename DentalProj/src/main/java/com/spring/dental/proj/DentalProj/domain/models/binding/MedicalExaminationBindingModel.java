@@ -17,7 +17,7 @@ import com.spring.dental.proj.DentalProj.domain.models.service.view.ExaminationI
 import com.spring.dental.proj.DentalProj.domain.models.service.view.PatientMedicalExaminationViewModel;
 import com.spring.dental.proj.DentalProj.utils.Messages;
 
-@ValidateDateRange(start="startDate", end="endDate")
+@ValidateDateRange(start="startDate", end="endDate",message="start date must be before end date!")
 public class MedicalExaminationBindingModel {
 	
 	private String id;
@@ -26,27 +26,25 @@ public class MedicalExaminationBindingModel {
 	@Size(min=2, max=100,message = Messages.TITLE_VALIDATION_MESSAGE)
 	private String title;
 	
-	@NotBlank(message="dentist field cannot be empty")
 	private DentistMedicalExaminationViewModel dentist;
 	
-    @NotBlank(message="patient field cannot be empty")
 	private PatientMedicalExaminationViewModel patient;
     
     @NotNull(message = "Invalid Date")
-    @DateTimeFormat(pattern = "dd-mm-yyy-HH:MM")
-    @FutureOrPresent(message = "StartDate On date must be either in present or in future")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @FutureOrPresent(message = "start date On date must be either in present or in future")
 	private Date startDate;
     
     @NotNull(message = "Invalid Date")
-    @DateTimeFormat(pattern = "dd-mm-yyy-HH:MM")
-    @Future(message = "StartDate On date must be in future")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Future(message = "end date On date must be in future")
 	private Date endDate;
 
 	private List<ExaminationImageViewModel> examinationImages;
 	
 
-	@NotBlank(message="Invalid notes")
-	@Size(min=2, max=1000,message = Messages.TITLE_VALIDATION_MESSAGE)
+	@NotBlank(message="Invalid notes ")
+	@Size(min=2, max=1000,message = Messages.NOTES_VALIDATION_MESSAGE)
 	private String notes;
 
 
