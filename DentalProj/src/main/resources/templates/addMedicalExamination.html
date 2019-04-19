@@ -12,7 +12,7 @@
 			<br />
 			<div class="container">
 				<h1 class="text-center text-dark">Add new medical examination</h1>
-				<hr class="hr-2 bg-dark w-25">
+				<hr class="hr-2 bg-dark w-80">
 				<form  th:replace="fragments/forms::addMedicalExaminationForm"></form>
 			</div>
 		</main>
@@ -34,7 +34,7 @@
 	  } 
 	}
 
-	$("#dentistImage").change(function() {
+	$("#examinationImages").change(function() {
 		updateExaminationImages(this,'div.gallery');
 	});
 </script>	

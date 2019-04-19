@@ -12,16 +12,23 @@ public class FileUploadConfig implements WebMvcConfigurer{
 	 @Override
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	       registry
-	               .addResourceHandler("/dentist/images/**")
+	               .addResourceHandler(ProjectConstants.DENTIST_IMAGES_MAPPED_PATH +"/**")
 	               .addResourceLocations("file:" + ProjectConstants.DENTIST_IMAGES_PATH)
 	               .setCachePeriod(3600)
 	               .resourceChain(true)
 	               .addResolver(new PathResourceResolver());
 	      registry
-	      .addResourceHandler("/patient/images/**")
-	      .addResourceLocations("file:" + ProjectConstants.PATIENT_IMAGES_PATH)
-	      .setCachePeriod(3600)
-          .resourceChain(true)
-          .addResolver(new PathResourceResolver());
+			      .addResourceHandler(ProjectConstants.PATIENT_IMAGES_MAPPED_PATH + "/**")
+			      .addResourceLocations("file:" + ProjectConstants.PATIENT_IMAGES_PATH)
+			      .setCachePeriod(3600)
+		          .resourceChain(true)
+		          .addResolver(new PathResourceResolver());
+	      
+	      registry
+			      .addResourceHandler(ProjectConstants.MEDICAL_EXAMINATION_IMAGES_PATH +"/**")
+			      .addResourceLocations("file:"  + ProjectConstants.MEDICAL_EXAMINATION_IMAGES_PATH )
+			      .setCachePeriod(3600)
+		          .resourceChain(true)
+		          .addResolver(new PathResourceResolver());
 	    }
 }

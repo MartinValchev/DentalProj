@@ -2,13 +2,11 @@ package com.spring.dental.proj.DentalProj.domain.models.service.view;
 
 import java.util.Date;
 
-import com.spring.dental.proj.DentalProj.domain.entities.MedicalExamination;
-
 public class ExaminationImageViewModel  extends BaseViewModel{
 	
 private String imageName;
 	
-	private MedicalExamination medicalExamination;
+	private MedicalExaminationViewModel medicalExamination;
 	
 	private Date uploadDate;
 	
@@ -22,11 +20,11 @@ private String imageName;
 		this.imageName = imageName;
 	}
 
-	public MedicalExamination getMedicalExamination() {
+	public MedicalExaminationViewModel getMedicalExamination() {
 		return medicalExamination;
 	}
 
-	public void setMedicalExamination(MedicalExamination medicalExamination) {
+	public void setMedicalExamination(MedicalExaminationViewModel medicalExamination) {
 		this.medicalExamination = medicalExamination;
 	}
 

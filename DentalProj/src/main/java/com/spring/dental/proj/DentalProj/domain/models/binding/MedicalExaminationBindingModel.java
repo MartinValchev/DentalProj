@@ -33,12 +33,12 @@ public class MedicalExaminationBindingModel {
 	private PatientMedicalExaminationViewModel patient;
     
     @NotNull(message = "Invalid Date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "dd-mm-yyy-HH:MM")
     @FutureOrPresent(message = "StartDate On date must be either in present or in future")
 	private Date startDate;
     
     @NotNull(message = "Invalid Date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "dd-mm-yyy-HH:MM")
     @Future(message = "StartDate On date must be in future")
 	private Date endDate;
 

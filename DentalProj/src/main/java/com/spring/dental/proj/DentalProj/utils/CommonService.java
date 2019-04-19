@@ -22,6 +22,9 @@ public class CommonService {
 		case ProjectConstants.PATIENT_MODEL:
 			fullImagePath = ProjectConstants.PATIENT_IMAGES_PATH + imageName + "." + extension;
 			break;
+		case ProjectConstants.MEDICAL_EXAMINATION_MODEL:
+			fullImagePath = ProjectConstants.MEDICAL_EXAMINATION_IMAGES_PATH + imageName + "." + extension;
+			break;
 		}
 		FileOutputStream out;
 		try {
