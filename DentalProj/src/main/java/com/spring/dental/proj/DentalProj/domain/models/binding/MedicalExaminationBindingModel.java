@@ -1,5 +1,6 @@
 package com.spring.dental.proj.DentalProj.domain.models.binding;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,13 +12,11 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.spring.dental.proj.DentalProj.domain.models.constraints.ValidateDateRange;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.DentistMedicalExaminationViewModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.ExaminationImageViewModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.PatientMedicalExaminationViewModel;
 import com.spring.dental.proj.DentalProj.utils.Messages;
 
-@ValidateDateRange(start="startDate", end="endDate",message="start date must be before end date!")
 public class MedicalExaminationBindingModel {
 	
 	private String id;
@@ -26,9 +25,11 @@ public class MedicalExaminationBindingModel {
 	@Size(min=2, max=100,message = Messages.TITLE_VALIDATION_MESSAGE)
 	private String title;
 	
-	private DentistMedicalExaminationViewModel dentist;
+	@NotNull(message = "You must select dentist")
+	private DentistMedicalExaminationViewModel dentist = new DentistMedicalExaminationViewModel();
 	
-	private PatientMedicalExaminationViewModel patient;
+	@NotNull(message = "You must select patient")
+	private PatientMedicalExaminationViewModel patient = new PatientMedicalExaminationViewModel();
     
     @NotNull(message = "Invalid Date")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -40,7 +41,7 @@ public class MedicalExaminationBindingModel {
     @Future(message = "end date On date must be in future")
 	private Date endDate;
 
-	private List<ExaminationImageViewModel> examinationImages;
+	private List<ExaminationImageViewModel> examinationImages= new ArrayList<>();;
 	
 
 	@NotBlank(message="Invalid notes ")

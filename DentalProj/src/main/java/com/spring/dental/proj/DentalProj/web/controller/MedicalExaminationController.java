@@ -73,6 +73,10 @@ public class MedicalExaminationController extends BaseController{
 					return entry;
 				})
 				.collect(Collectors.toList());
+		if(dentistList.size() ==0 || patientList.size()==0) {
+			//TODO display a page notifying user to first add dentist or patient
+			
+		}
 		modelAndView.addObject("dentistList", dentistList);
 		modelAndView.addObject("patientList", patientList);
 		return super.view("addMedicalExamination",modelAndView);

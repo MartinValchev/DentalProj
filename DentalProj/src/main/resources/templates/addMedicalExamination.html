@@ -1,46 +1,72 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
-<head>
-<th:block th:include="~{fragments/head}"></th:block>
-<title>Add new medical examination</title>
-</head>
-<body>
-		<header>
-			<th:block th:include="~{fragments/navbar}"></th:block>
-		</header>
-		<main class="mt-3">
-			<br />
-			<div class="container">
-				<h1 class="text-center text-dark">Add new medical examination</h1>
-				<hr class="hr-2 bg-dark w-80">
-				<form  th:replace="fragments/medical-examination-forms::addMedicalExaminationForm"></form>
-			</div>
-		</main>
-	<script>
+	<head>
+		<th:block th:include="~{fragments/head}"></th:block>
+		<script th:src="@{/js/medical-examination.js}"></script>
+		<title>Add new medical examination</title>
+	</head>
+	<body>
+			<header>
+				<th:block th:include="~{fragments/navbar}"></th:block>
+			</header>
+			<main class="mt-3">
+				<br />
+				<div class="container">
+					<h1 class="text-center text-dark">Add new medical examination</h1>
+					<hr class="hr-2 bg-dark w-80">
+					<form  th:replace="fragments/medical-examination-forms::addMedicalExaminationForm"></form>
+				</div>
+			</main>
+		<footer>
+				<th:block th:include="~{fragments/footer}"></th:block>
+		</footer>
+		<script>
+		$("#examinationImages").change(function() {
+			updateExaminationImages(this,'div.gallery');
+		});
 	function updateExaminationImages(input,placeToInsertImagePreview) {
 
-	  if (input.files && input.files[0]) {
-		var filesAmount = input.files.length;
+		  if (input.files && input.files[0]) {
+			var filesAmount = input.files.length;
 
-	       for (i = 0; i < filesAmount; i++) {  
-			var reader = new FileReader();
-	
-			reader.onload = function(event) {
-				$($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
-			}
-	
-			reader.readAsDataURL(input.files[0]);
-		  }
-	  } 
-	}
+		       for (i = 0; i < filesAmount; i++) {  
+				var reader = new FileReader();
+		
+				reader.onload = function(event) {
+					$($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+				}
+		
+				reader.readAsDataURL(input.files[0]);
+			  }
+		  } 
+		};
+		</script>
+		<script>
 
-	$("#examinationImages").change(function() {
-		updateExaminationImages(this,'div.gallery');
-	});
-</script>	
+			$('#endDate').change(function() {
+				let startDateVal = $('#startDate').val();
+				let endDateErrors = $('#endDateErrors');
+				endDateErrors.empty();
+				let startDateErrors =$('#startDateErrors');
+				startDateErrors.val('');
+				let endDateElement =$('#endDate');
+				if('' ==startDateVal){
+					endDateElement.val('');
+					endDateErrors.append("Please fill start date before end date")
+				}else{
+					let startDateElement = new Date(startDateVal);		
+					let endDate = new Date(endDateElement.val());
+					let isValid = dateCompare(startDateElement, endDate);
+						if (!isValid){
+							endDateElement.val('');
+							endDateErrors.append('end date must be after start date');
+						}
+				}		
+			});
+			function dateCompare(date1, date2){
+				return date2 > date1;
+			};
 
-	<footer>
-			<th:block th:include="~{fragments/footer}"></th:block>
-		</footer>
-</body>
+		</script>
+	</body>
 </html>

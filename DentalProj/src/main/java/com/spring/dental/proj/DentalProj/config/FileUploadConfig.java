@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
-import com.spring.dental.proj.DentalProj.utils.DateTimeConverter;
+import com.spring.dental.proj.DentalProj.utils.PatientConverter;
 import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
 
 @org.springframework.context.annotation.Configuration
@@ -35,9 +35,9 @@ public class FileUploadConfig implements WebMvcConfigurer{
 	      
 		         
 	    }
-/*	 @Override
+	 @Override
 	 public void addFormatters(FormatterRegistry registry) {
-	     registry.addConverter(new DateTimeConverter());
+	     registry.addConverter(new PatientConverter());
 
-	 }*/
+	 }
 }
