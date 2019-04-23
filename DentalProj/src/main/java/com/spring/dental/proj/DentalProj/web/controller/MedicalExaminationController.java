@@ -1,10 +1,11 @@
 package com.spring.dental.proj.DentalProj.web.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.spring.dental.proj.DentalProj.domain.models.MedicalExaminationServiceModel;
 import com.spring.dental.proj.DentalProj.domain.models.binding.MedicalExaminationBindingModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.DentistMedicalExaminationViewModel;
@@ -30,6 +32,7 @@ import com.spring.dental.proj.DentalProj.service.MedicalExaminationService;
 import com.spring.dental.proj.DentalProj.service.PatientService;
 import com.spring.dental.proj.DentalProj.utils.CommonService;
 import com.spring.dental.proj.DentalProj.utils.ProjectConstants;
+
 import javassist.NotFoundException;
 
 @Controller
@@ -84,7 +87,7 @@ public class MedicalExaminationController extends BaseController{
 	
 	@PostMapping("/add")
 	@PreAuthorize("hasRole('DENTIST')")
-	public ModelAndView addMedicalExamination(@Valid @ModelAttribute MedicalExaminationBindingModel medicalExaminationBindingModel,BindingResult bindingResult, @RequestParam("examinationImages") List<MultipartFile> examinationImages, ModelAndView modelAndView) {	
+	public ModelAndView addMedicalExamination(@Valid @ModelAttribute MedicalExaminationBindingModel medicalExaminationBindingModel,BindingResult bindingResult, @RequestParam("examinationImages") MultipartFile[] examinationImages, ModelAndView modelAndView) {	
 		if (bindingResult.hasErrors()) {
 			if(medicalExaminationBindingModel.getStartDate().after(medicalExaminationBindingModel.getEndDate())) {
 				ObjectError error = new ObjectError("startDate","startDate must be after end date");
@@ -101,9 +104,11 @@ public class MedicalExaminationController extends BaseController{
 				modelAndView.addObject("medicalExaminationBindingModel", medicalExaminationBindingModel);
 				return super.view("addMedicalExamination");
 			}
-			List<ExaminationImageViewModel> imageList = new ArrayList<>();
-			if(examinationImages !=null && examinationImages.size()>0) {
+			ExaminationImageViewModel[] imageList = null;
+			if(examinationImages !=null && examinationImages.length >0) {
+				imageList = new ExaminationImageViewModel[examinationImages.length];
 				MedicalExaminationViewModel medicalExmainationViewModel = this.modelMapper.map(medicalExaminationBindingModel, MedicalExaminationViewModel.class);
+				int counter =0;
 				for(MultipartFile image : examinationImages) {
 					ExaminationImageViewModel examinationImageViewModel= new ExaminationImageViewModel();
 					String examinationImageName = medicalExaminationBindingModel.getPatient().getPatientFullName() + System.currentTimeMillis();	
@@ -113,10 +118,10 @@ public class MedicalExaminationController extends BaseController{
 					examinationImageViewModel.setImagePath(relativeImagePath);
 					examinationImageViewModel.setMedicalExamination(medicalExmainationViewModel);
 					examinationImageViewModel.setUploadDate(new Date());
-					imageList.add(examinationImageViewModel);
+					imageList[counter] = examinationImageViewModel;
+					counter++;
 				}
 			}
-			medicalExaminationBindingModel.setExaminationImages(imageList);
 			MedicalExaminationServiceModel serviceModel = this.modelMapper.map(medicalExaminationBindingModel, MedicalExaminationServiceModel.class);
 			MedicalExaminationServiceModel storedServiceModel = this.medicalExaminationService.saveMedicalExamination(serviceModel);
 			return super.redirect("/medicalexamination/get/" + storedServiceModel.getId());

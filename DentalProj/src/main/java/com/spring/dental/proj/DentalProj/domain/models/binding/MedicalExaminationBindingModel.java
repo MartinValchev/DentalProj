@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.dental.proj.DentalProj.domain.models.service.view.DentistMedicalExaminationViewModel;
 import com.spring.dental.proj.DentalProj.domain.models.service.view.ExaminationImageViewModel;
@@ -41,7 +42,7 @@ public class MedicalExaminationBindingModel {
     @Future(message = "end date On date must be in future")
 	private Date endDate;
 
-	private List<ExaminationImageViewModel> examinationImages= new ArrayList<>();;
+	private MultipartFile[] examinationImages;
 	
 
 	@NotBlank(message="Invalid notes ")
@@ -79,7 +80,7 @@ public class MedicalExaminationBindingModel {
 	}
 
 
-	public List<ExaminationImageViewModel> getExaminationImages() {
+	public MultipartFile[] getExaminationImages() {
 		return examinationImages;
 	}
 
@@ -119,10 +120,9 @@ public class MedicalExaminationBindingModel {
 	}
 
 
-	public void setExaminationImages(List<ExaminationImageViewModel> examinationImages) {
+	public void setExaminationImages(MultipartFile[] examinationImages) {
 		this.examinationImages = examinationImages;
 	}
-
 
 	public void setNotes(String notes) {
 		this.notes = notes;
