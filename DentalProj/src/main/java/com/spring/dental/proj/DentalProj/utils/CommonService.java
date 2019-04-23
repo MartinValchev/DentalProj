@@ -41,16 +41,19 @@ public class CommonService {
 
 	public String generateRelativeImagePath(String fullPath, String modelType) {
 		String imageName = fullPath.substring(fullPath.lastIndexOf('\\') + 1);
-		String relativeImagePath = "";
+		StringBuilder relativeImagePath = new StringBuilder();
 		switch (modelType) {
 		case ProjectConstants.DENTIST_MODEL:
-			relativeImagePath = ProjectConstants.DENTIST_IMAGES_MAPPED_PATH + imageName;
+			relativeImagePath.append(ProjectConstants.DENTIST_IMAGES_MAPPED_PATH);
 			break;
 		case ProjectConstants.PATIENT_MODEL:
-			relativeImagePath = ProjectConstants.PATIENT_IMAGES_MAPPED_PATH + imageName;
+			relativeImagePath.append(ProjectConstants.PATIENT_IMAGES_MAPPED_PATH);
+			break;
+		case ProjectConstants.MEDICAL_EXAMINATION_MODEL:
+			relativeImagePath.append(ProjectConstants.MEDICAL_EXAMINATION_IMAGES_MAPPED_PATH);
 			break;
 		}
-		return relativeImagePath;
+		return relativeImagePath.append(imageName).toString();
 	}
 
 	public void removeImage(String fullImagePath) {

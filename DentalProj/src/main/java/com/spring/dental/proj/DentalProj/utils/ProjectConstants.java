@@ -2,15 +2,15 @@ package com.spring.dental.proj.DentalProj.utils;
 
 public class ProjectConstants {
 	// image paths
-	public static final String DENTIST_IMAGES_PATH = "C:\\Projects\\DentalProj\\dentist\\images\\";
-	//public static final String DENTIST_IMAGES_PATH = "E:\\Projects2\\DentalProj\\dentist\\images\\";
+	//public static final String DENTIST_IMAGES_PATH = "C:\\Projects\\DentalProj\\dentist\\images\\";
+	public static final String DENTIST_IMAGES_PATH = "E:\\Projects2\\DentalProj\\dentist\\images\\";
 	
 	
-	//public static final String PATIENT_IMAGES_PATH = "E:\\Projects2\\DentalProj\\patient\\images\\";
-	public static final String PATIENT_IMAGES_PATH = "C:\\Projects\\DentalProj\\patient\\images\\";
+	public static final String PATIENT_IMAGES_PATH = "E:\\Projects2\\DentalProj\\patient\\images\\";
+	//public static final String PATIENT_IMAGES_PATH = "C:\\Projects\\DentalProj\\patient\\images\\";
 	
-	public static final String MEDICAL_EXAMINATION_IMAGES_PATH = "C:\\Projects\\DentalProj\\examination\\images\\";
-	//public static final String MEDICAL_EXAMINATION_IMAGES_PATH = "E:\\Projects2\\DentalProj\\examination\\images\\";
+	//public static final String MEDICAL_EXAMINATION_IMAGES_PATH = "C:\\Projects\\DentalProj\\examination\\images\\";
+	public static final String MEDICAL_EXAMINATION_IMAGES_PATH = "E:\\Projects2\\DentalProj\\examination\\images\\";
 	
 	public static final String DENTIST_IMAGES_MAPPED_PATH = "/dentist/images/";
 	
@@ -31,7 +31,6 @@ public class ProjectConstants {
 	
 	// images
 	public static final String TMP_FOLDER = "C:\\Projects\\DentalProj\\tmp\\";
-	
 	public static final Long MAX_UPLOAD_SIZE=10485760L;
 	
 	
